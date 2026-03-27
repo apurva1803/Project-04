@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import in.co.rays.proj4.bean.DropdownListBean;
 import in.co.rays.proj4.model.RoleModel;
 
 public class HTMLUtility {
