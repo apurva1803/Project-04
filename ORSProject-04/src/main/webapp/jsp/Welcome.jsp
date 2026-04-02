@@ -7,8 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
-		<h1>Welcome to online result system</h1>
-	</div>
+	<%@ include file="Header.jsp"%>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1 align="center">
+		<font size="10px" color="navy">Welcome to Online Result System</font>
+	</h1>
 </body>
 </html>

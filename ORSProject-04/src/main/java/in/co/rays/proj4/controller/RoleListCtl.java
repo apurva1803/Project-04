@@ -1,7 +1,6 @@
 package in.co.rays.proj4.controller;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
