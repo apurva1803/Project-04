@@ -30,15 +30,36 @@
 		(<%=session.getAttribute("role")%>)
 	</h3>
 	
-	<a href="<%=ORSView.USER_CTL%>"><b>Add User</b></a>
+	<a href="MyProfileCtl"><b>My Profile</b></a>
 	<b>|</b>
-	<a href="<%=ORSView.USER_LIST_CTL%>"><b>User List</b></a>
+	<a href="ChangePasswordCtl"><b>Change Password</b></a>
 	<b>|</b>
-	<a href="<%=ORSView.ROLE_CTL%>"><b>Add Role</b></a>
+	<a href="GetMarksheetCtl"><b>Get Marksheet</b></a>
 	<b>|</b>
-	<a href="<%=ORSView.ROLE_LIST_CTL%>"><b>Role List</b></a>
+	<a href="MarksheetMeritListCtl"><b>Marksheet Merit List</b></a>
+	<b>|</b>
+	<a href="UserCtl"><b>Add User</b></a>
+	<b>|</b>
+	<a href="UserListCtl"><b>User List</b></a>
+	<b>|</b>
+	<a href="RoleCtl"><b>Add Role</b></a>
+	<b>|</b>
+	<a href="RoleListCtl"><b>Role List</b></a>
+	<b>|</b>
+	<a href="CollegeCtl"><b>Add College</b></a>
+	<b>|</b>
+	<a href="CollegeListCtl"><b>College List</b></a>
+	<b>|</b>
+	<a href="StudentCtl"><b>Add Student</b></a>
+	<b>|</b>
+	<a href="StudentListCtl"><b>Student List</b></a>
+	<b>|</b>
+	<a href="MarksheetCtl"><b>Add Marksheet</b></a>
+	<b>|</b>
+	<a href="MarksheetListCtl"><b>Marksheet List</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.LOGIN_CTL + "?operation=Logout"%>"><b>Logout</b></a>
+	
 	<%
 		} else {
 	%>

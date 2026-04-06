@@ -16,7 +16,7 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet("/RoleListCtl")
+@WebServlet(name = "RoleListCtl", urlPatterns = { "/RoleListCtl" })
 public class RoleListCtl extends BaseCtl{
 
 	@Override
