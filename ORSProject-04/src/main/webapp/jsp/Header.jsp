@@ -58,6 +58,14 @@
 	<b>|</b>
 	<a href="MarksheetListCtl"><b>Marksheet List</b></a>
 	<b>|</b>
+	<a href="CourseCtl"><b>Add Course</b></a>
+	<b>|</b>
+	<a href="CourseListCtl"><b>Course List</b></a>
+	<b>|</b>
+	<a href="SubjectCtl"><b>Add Subject</b></a>
+	<b>|</b>
+	<a href="SubjectListCtl"><b>Subject List</b></a>
+	<b>|</b>
 	<a href="<%=ORSView.LOGIN_CTL + "?operation=Logout"%>"><b>Logout</b></a>
 	
 	<%
