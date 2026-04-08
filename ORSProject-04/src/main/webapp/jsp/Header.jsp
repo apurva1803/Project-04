@@ -66,6 +66,10 @@
 	<b>|</b>
 	<a href="SubjectListCtl"><b>Subject List</b></a>
 	<b>|</b>
+	<a href="TimetableCtl"><b>Add Timetable</b></a>
+	<b>|</b>
+	<a href="TimetableListCtl"><b>Timetable List</b></a>
+	<b>|</b>
 	<a href="<%=ORSView.LOGIN_CTL + "?operation=Logout"%>"><b>Logout</b></a>
 	
 	<%
