@@ -6,15 +6,34 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * RoleModel handles all CRUD operations related to the st_role table.
+ * It provides methods to add, update, delete, search and retrieve role data.
+ *
+ * author Apurva Deshmukh
+ */
 public class RoleModel {
 
+	private static Logger log = Logger.getLogger(RoleModel.class);
+
+    /**
+     * Returns the next primary key of st_role table.
+     *
+     * @return next primary key
+     * @throws DatabaseException if database access error occurs
+     */
 	public Integer nextPk() throws DatabaseException{
+
+		log.debug("nextPk() started");
+
 		
 		Connection conn = null;
 		int pk=0;
@@ -40,7 +59,17 @@ public class RoleModel {
 		return pk+1;
 	}
 	
+	/**
+     * Adds a new role entry to the database.
+     *
+     * @param bean RoleBean containing role details
+     * @return generated primary key
+     * @throws ApplicationException if error occurs during insertion
+     * @throws DuplicateRecordException if role already exists
+     */
 	public long add(RoleBean bean) throws ApplicationException, DuplicateRecordException {
+		
+		log.info("add() called for Role : " + bean.getName());
 		
 		Connection conn = null;
 		int pk = 0;
@@ -84,8 +113,17 @@ public class RoleModel {
 		
 	}
 
+	/**
+     * Updates an existing role.
+     *
+     * @param bean RoleBean with updated data
+     * @throws ApplicationException if update fails
+     * @throws DuplicateRecordException if role name already exists for another ID
+     */
 	public void update(RoleBean bean) throws ApplicationException, DuplicateRecordException {
 		
+		log.info("update() called for Role ID : " + bean.getId());
+		 
 		Connection conn = null;
 		
 		RoleBean duplicateRole = findByName(bean.getName());
@@ -125,8 +163,16 @@ public class RoleModel {
 		}
 	}
 	
+	/**
+     * Deletes a role from the database.
+     *
+     * @param bean RoleBean containing ID to delete
+     * @throws ApplicationException if deletion fails
+     */
 	public void delete(RoleBean bean) throws ApplicationException
 	{
+		log.info("delete() called for Role ID : " + bean.getId());
+		
 		Connection conn = null;
 		
 		try {
@@ -151,7 +197,16 @@ public class RoleModel {
 		}
 	}
 
+	/**
+     * Finds role by primary key.
+     *
+     * @param pk primary key
+     * @return RoleBean if found, else null
+     * @throws ApplicationException if retrieval fails
+     */
 	public RoleBean findByPk(long pk) throws ApplicationException{
+		
+		log.debug("findByPk() called PK : " + pk);
 		
 		RoleBean bean = null;
 		Connection conn = null;
@@ -187,7 +242,16 @@ public class RoleModel {
 
 	}
 	
+	/**
+     * Finds role by name.
+     *
+     * @param name role name
+     * @return RoleBean if found, else null
+     * @throws ApplicationException if retrieval fails
+     */
 	public RoleBean findByName(String name) throws ApplicationException {
+		
+		log.debug("findByName() called Name : " + name);
 		
 		StringBuffer sql = new StringBuffer("select * from st_role where name = ?");
 		RoleBean bean = null;
@@ -220,11 +284,29 @@ public class RoleModel {
 		return bean;
 	}
 	
+	/**
+     * Returns complete list of roles.
+     *
+     * @return list of RoleBean
+     * @throws ApplicationException if operation fails
+     */
 	public List<RoleBean> list() throws ApplicationException {
+		log.debug("list() called");
 		return search(null, 0, 0);
 	}
 
+	/**
+     * Searches roles based on criteria.
+     *
+     * @param bean RoleBean containing search filters
+     * @param pageNo page number for pagination
+     * @param pageSize number of rows per page
+     * @return list of matching RoleBean
+     * @throws ApplicationException if search fails
+     */
 	public List<RoleBean> search(RoleBean bean, int pageNo, int pageSize) throws ApplicationException{
+		
+		log.debug("search() called");
 		
 		StringBuffer sql = new StringBuffer("select * from st_role where 1=1");
 		

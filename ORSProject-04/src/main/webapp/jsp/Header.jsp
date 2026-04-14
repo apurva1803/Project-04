@@ -1,12 +1,12 @@
 <%@page import="in.co.rays.proj4.controller.LoginCtl"%>
 <%@page import="in.co.rays.proj4.bean.UserBean"%>
-<%@page import="in.co.rays.proj4.controller.ORSView"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+
 <!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!-- Include jQuery UI -->
@@ -18,6 +18,12 @@
 <script src="/ORSProject-04/js/datepicker.js"></script>
 </head>
 <body>
+
+	<!-- Logo -->
+	<img src="<%=request.getContextPath()%>/img/customLogo.jpg"
+		align="right" width="100" height="40" border="0">
+	
+
 	<%
 		UserBean user = (UserBean) session.getAttribute("user");
 	%>
@@ -29,7 +35,6 @@
 		<%=user.getFirstName()%>
 		(<%=session.getAttribute("role")%>)
 	</h3>
-	
 	<a href="MyProfileCtl"><b>My Profile</b></a>
 	<b>|</b>
 	<a href="ChangePasswordCtl"><b>Change Password</b></a>
@@ -70,8 +75,13 @@
 	<b>|</b>
 	<a href="TimetableListCtl"><b>Timetable List</b></a>
 	<b>|</b>
-	<a href="<%=ORSView.LOGIN_CTL + "?operation=Logout"%>"><b>Logout</b></a>
-	
+	<a href="FacultyCtl"><b>Add Faculty</b></a>
+	<b>|</b>
+	<a href="FacultyListCtl"><b>Faculty List</b></a>
+	<b>|</b>
+	<a href="doc/index.html" target="blank"><b>Java Doc</b></a>
+	<b>|</b>
+	<a href="LoginCtl?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
 	<%
 		} else {
 	%>
@@ -82,5 +92,8 @@
 		}
 	%>
 	<hr>
+	
+	<%@ include file="Footer.jsp"%>
+	
 </body>
 </html>

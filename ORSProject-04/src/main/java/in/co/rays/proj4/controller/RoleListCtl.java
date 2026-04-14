@@ -43,9 +43,9 @@ public class RoleListCtl extends BaseCtl{
 			List<RoleBean> list = model.search(bean, pageNo, pageSize);
 			List<RoleBean> next = model.search(bean, pageNo + 1 , pageSize);
 			
-			if(list == null || list.isEmpty()) {}
+			if(list == null || list.isEmpty()) {
 			ServletUtility.setErrorMessage("No Record Found", req);
-			
+			}
 			ServletUtility.setList(list, req);
 			ServletUtility.setPageNo(pageNo, req);
 			ServletUtility.setPageSize(pageSize, req);

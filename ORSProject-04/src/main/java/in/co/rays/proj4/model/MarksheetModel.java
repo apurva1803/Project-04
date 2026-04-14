@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import in.co.rays.proj4.bean.MarksheetBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -13,8 +15,24 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * MarksheetModel handles all operations related to the st_marksheet table.
+ * It provides functionality for adding, updating, deleting, searching,
+ * generating merit lists and accessing marksheet information using roll numbers
+ * or primary keys.
+ *
+ * author Apurva Deshmukh
+ */
 public class MarksheetModel {
 
+	private static Logger log = Logger.getLogger(MarksheetModel.class);
+
+    /**
+     * Returns the next primary key for st_marksheet table.
+     *
+     * @return next primary key
+     * @throws DatabaseException if database error occurs
+     */
 	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
@@ -35,8 +53,18 @@ public class MarksheetModel {
 		return pk + 1;
 	}
 
+	/**
+     * Adds a new marksheet record.
+     *
+     * @param bean MarksheetBean containing data to save
+     * @return generated primary key
+     * @throws ApplicationException if insertion fails
+     * @throws DuplicateRecordException if roll number already exists
+     */
 	public long add(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 
+		log.debug("MarksheetModel add started");
+		
 		Connection conn = null;
 
 		int pk = 0;
@@ -85,8 +113,17 @@ public class MarksheetModel {
 		return pk;
 	}
 
+	/**
+     * Updates an existing marksheet.
+     *
+     * @param bean MarksheetBean with updated data
+     * @throws ApplicationException if update fails
+     * @throws DuplicateRecordException if roll number belongs to another record
+     */
 	public void update(MarksheetBean bean) throws ApplicationException, DuplicateRecordException {
 
+		log.debug("MarksheetModel update started, ID = " + bean.getId());
+		
 		Connection conn = null;
 
 		MarksheetBean beanExist = findByRollNo(bean.getRollNo());
@@ -131,8 +168,16 @@ public class MarksheetModel {
 		}
 	}
 
+	/**
+     * Deletes a marksheet.
+     *
+     * @param bean MarksheetBean containing ID to delete
+     * @throws ApplicationException if delete fails
+     */
 	public void delete(MarksheetBean bean) throws ApplicationException {
 
+		log.debug("MarksheetModel delete started, ID = " + bean.getId());
+		
 		Connection conn = null;
 
 		try {
@@ -156,8 +201,17 @@ public class MarksheetModel {
 		}
 	}
 
+	/**
+     * Finds a marksheet by primary key.
+     *
+     * @param pk primary key
+     * @return MarksheetBean if found
+     * @throws ApplicationException if retrieval fails
+     */
 	public MarksheetBean findByPk(long pk) throws ApplicationException {
 
+		log.debug("MarksheetModel findByPk started, PK = " + pk);
+		 
 		StringBuffer sql = new StringBuffer("select * from st_marksheet where id = ?");
 		MarksheetBean bean = null;
 		Connection conn = null;
@@ -191,8 +245,17 @@ public class MarksheetModel {
 		return bean;
 	}
 
+	/**
+     * Finds a marksheet by roll number.
+     *
+     * @param rollNo roll number
+     * @return MarksheetBean if found
+     * @throws ApplicationException if retrieval fails
+     */
 	public MarksheetBean findByRollNo(String rollNo) throws ApplicationException {
 
+		log.debug("MarksheetModel findByRollNo started, RollNo = " + rollNo);
+		
 		StringBuffer sql = new StringBuffer("select * from st_marksheet where roll_no = ?");
 		MarksheetBean bean = null;
 		Connection conn = null;
@@ -226,8 +289,29 @@ public class MarksheetModel {
 		return bean;
 	}
 
+	/**
+     * Returns list of all marksheets.
+     *
+     * @return list of MarksheetBean
+     * @throws ApplicationException if retrieval fails
+     */
+    public List<MarksheetBean> list() throws ApplicationException {
+        return search(null, 0, 0);
+    }
+
+    /**
+     * Searches marksheets based on criteria.
+     *
+     * @param bean search parameters
+     * @param pageNo page number
+     * @param pageSize number of records per page
+     * @return list of matching MarksheetBean
+     * @throws ApplicationException if search fails
+     */
 	public List<MarksheetBean> search(MarksheetBean bean, int pageNo, int pageSize) throws ApplicationException {
 
+		log.debug("MarksheetModel search started");
+		 
 		StringBuffer sql = new StringBuffer("select * from st_marksheet where 1=1");
 
 		if (bean != null) {
@@ -286,8 +370,18 @@ public class MarksheetModel {
 		return list;
 	}
 
+	/**
+     * Returns merit list (students who passed in all subjects).
+     *
+     * @param pageNo page number
+     * @param pageSize number of entries per page
+     * @return list of top scoring MarksheetBean
+     * @throws ApplicationException if retrieval fails
+     */
 	public List<MarksheetBean> getMeritList(int pageNo, int pageSize) throws ApplicationException {
 
+		log.debug("MarksheetModel getMeritList started");
+		
 		ArrayList<MarksheetBean> list = new ArrayList<MarksheetBean>();
 		StringBuffer sql = new StringBuffer(
 				"select id, roll_no, name, physics, chemistry, maths, (physics + chemistry + maths) as total from st_marksheet where physics > 33 and chemistry > 33 and maths > 33 order by total desc");

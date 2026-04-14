@@ -15,8 +15,23 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * TimetableModel handles all database operations related to timetable entries.
+ * It supports adding, updating, deleting, searching, and checking timetable
+ * conflicts such as course, subject, semester, date, and time clashes.
+ *
+ * This model maps data between TimetableBean objects and the st_timetable table.
+ *
+ * @author Apurva Deshmukh
+ */
 public class TimetableModel {
 
+	/**
+     * Returns the next primary key for the st_timetable table.
+     *
+     * @return next available primary key
+     * @throws DatabaseException if any database related error occurs
+     */
 	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
@@ -37,6 +52,14 @@ public class TimetableModel {
 		return pk + 1;
 	}
 
+	/**
+     * Adds a new timetable record.
+     *
+     * @param bean TimetableBean containing timetable details
+     * @return generated primary key
+     * @throws ApplicationException if an error occurs during insert
+     * @throws DuplicateRecordException if a duplicate timetable record exists
+     */
 	public long add(TimetableBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
@@ -85,6 +108,13 @@ public class TimetableModel {
 		return pk;
 	}
 
+	/**
+     * Updates an existing timetable record.
+     *
+     * @param bean TimetableBean containing updated details
+     * @throws ApplicationException if update fails
+     * @throws DuplicateRecordException if duplicate timetable exists
+     */
 	public void update(TimetableBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
@@ -132,6 +162,12 @@ public class TimetableModel {
 		}
 	}
 
+	 /**
+     * Deletes a timetable record.
+     *
+     * @param bean TimetableBean containing ID to delete
+     * @throws ApplicationException if delete fails
+     */
 	public void delete(TimetableBean bean) throws ApplicationException {
 		Connection conn = null;
 		try {
@@ -155,6 +191,13 @@ public class TimetableModel {
 		}
 	}
 
+	/**
+     * Finds a timetable by primary key.
+     *
+     * @param pk primary key
+     * @return TimetableBean if found else null
+     * @throws ApplicationException if retrieval fails
+     */
 	public TimetableBean findByPk(long pk) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_timetable where id = ?");
 		TimetableBean bean = null;
@@ -190,6 +233,25 @@ public class TimetableModel {
 		return bean;
 	}
 
+	/**
+     * Returns list of all timetables.
+     *
+     * @return list of all TimetableBean
+     * @throws ApplicationException if retrieval fails
+     */
+    public List<TimetableBean> list() throws ApplicationException {
+        return search(null, 0, 0);
+    }
+    
+	/**
+     * Searches timetable records using criteria.
+     *
+     * @param bean search parameters
+     * @param pageNo page number
+     * @param pageSize page size
+     * @return List of matching TimetableBean
+     * @throws ApplicationException if search fails
+     */
 	public List<TimetableBean> search(TimetableBean bean, int pageNo, int pageSize) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_timetable where 1=1");
 
@@ -261,6 +323,14 @@ public class TimetableModel {
 		return list;
 	}
 	
+	/**
+     * Checks timetable conflict for course and exam date.
+     *
+     * @param courseId course ID
+     * @param examDate exam date
+     * @return TimetableBean if conflict exists else null
+     * @throws ApplicationException if DB error occurs
+     */
 	public TimetableBean checkByCourseName(Long courseId, Date examDate) throws ApplicationException {
 		StringBuffer sql = new StringBuffer("select * from st_timetable where course_id = ? and exam_date = ?");
 		TimetableBean bean = null;
@@ -300,6 +370,15 @@ public class TimetableModel {
 		return bean;
 	}
 
+	/**
+     * Checks conflict by subject, course, and date.
+     *
+     * @param courseId course ID
+     * @param subjectId subject ID
+     * @param examDate exam date
+     * @return TimetableBean if conflict exists
+     * @throws ApplicationException if DB access error
+     */
 	public TimetableBean checkBySubjectName(Long courseId, Long subjectId, Date examDate) throws ApplicationException {
 		StringBuffer sql = new StringBuffer(
 				"select * from st_timetable where course_id = ? and subject_id = ? and exam_date = ?");
@@ -341,6 +420,16 @@ public class TimetableModel {
 		return bean;
 	}
 
+	/**
+     * Checks timetable conflict by semester.
+     *
+     * @param courseId course ID
+     * @param subjectId subject ID
+     * @param semester semester string
+     * @param examDate exam date
+     * @return TimetableBean if conflict exists
+     * @throws ApplicationException if DB error occurs
+     */
 	public TimetableBean checkBySemester(Long courseId, Long subjectId, String semester, Date examDate)
 			throws ApplicationException {
 		StringBuffer sql = new StringBuffer(
@@ -383,6 +472,18 @@ public class TimetableModel {
 		return bean;
 	}
 
+	/**
+     * Checks timetable conflict by date, time, description, course and subject.
+     *
+     * @param courseId course ID
+     * @param subjectId subject ID
+     * @param semester semester
+     * @param examDate exam date
+     * @param examTime exam time
+     * @param description exam description
+     * @return TimetableBean if conflict exists
+     * @throws ApplicationException if DB error occurs
+     */
 	public TimetableBean checkByExamTime(Long courseId, Long subjectId, String semester, Date examDate, String examTime,
 			String description) throws ApplicationException {
 		StringBuffer sql = new StringBuffer(

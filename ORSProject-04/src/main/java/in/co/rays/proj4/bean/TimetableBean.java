@@ -2,92 +2,128 @@ package in.co.rays.proj4.bean;
 
 import java.util.Date;
 
+/**
+ * TimetableBean represents an exam timetable entry.
+ * It contains course, subject, semester, exam date and exam time details.
+ *
+ * Author Apurva Deshmukh
+ */
 public class TimetableBean extends BaseBean{
 
-	private String semester;
-	private String description;
-	private Date examDate;
-	private String examTime;
-	private long courseId;
-	private String courseName;
-	private long subjectId;
-	private String subjectName;
-	
-	public String getSemester() {
-		return semester;
-	}
-	
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	public Date getExamDate() {
-		return examDate;
-	}
-	
-	public void setExamDate(Date examDate) {
-		this.examDate = examDate;
-	}
-	
-	public String getExamTime() {
-		return examTime;
-	}
-	
-	public void setExamTime(String examTime) {
-		this.examTime = examTime;
-	}
-	
-	public long getCourseId() {
-		return courseId;
-	}
-	
-	public void setCourseId(long courseId) {
-		this.courseId = courseId;
-	}
-	
-	public String getCourseName() {
-		return courseName;
-	}
-	
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-	
-	public long getSubjectId() {
-		return subjectId;
-	}
-	
-	public void setSubjectId(long subjectId) {
-		this.subjectId = subjectId;
-	}
-	
-	public String getSubjectName() {
-		return subjectName;
-	}
-	
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
+	/** Semester of the exam */
+    private String semester;
 
-	@Override
-	public String getKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /** Description for the timetable entry */
+    private String description;
 
-	@Override
-	public String getValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+    /** Exam date */
+    private Date examDate;
+
+    /** Exam time */
+    private String examTime;
+
+    /** Course ID (FK) */
+    private long courseId;
+
+    /** Course name */
+    private String courseName;
+
+    /** Subject ID (FK) */
+    private long subjectId;
+
+    /** Subject name */
+    private String subjectName;
+
+    /** Returns semester */
+    public String getSemester() {
+        return semester;
+    }
+
+    /** Sets semester */
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    /** Returns description */
+    public String getDescription() {
+        return description;
+    }
+
+    /** Sets description */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /** Returns exam date */
+    public Date getExamDate() {
+        return examDate;
+    }
+
+    /** Sets exam date */
+    public void setExamDate(Date examDate) {
+        this.examDate = examDate;
+    }
+
+    /** Returns exam time */
+    public String getExamTime() {
+        return examTime;
+    }
+
+    /** Sets exam time */
+    public void setExamTime(String examTime) {
+        this.examTime = examTime;
+    }
+
+    /** Returns course ID */
+    public long getCourseId() {
+        return courseId;
+    }
+
+    /** Sets course ID */
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
+    }
+
+    /** Returns course name */
+    public String getCourseName() {
+        return courseName;
+    }
+
+    /** Sets course name */
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    /** Returns subject ID */
+    public long getSubjectId() {
+        return subjectId;
+    }
+
+    /** Sets subject ID */
+    public void setSubjectId(long subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    /** Returns subject name */
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    /** Sets subject name */
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    /** Dropdown key (not used in this bean) */
+    @Override
+    public String getKey() {
+        return null;
+    }
+
+    /** Dropdown value (not used in this bean) */
+    @Override
+    public String getValue() {
+        return null;
+    }
 	
 }

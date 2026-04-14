@@ -18,32 +18,32 @@ import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet("/UserRegistrationCtl")
-public class UserRegistrationCtl extends BaseCtl{
+@WebServlet(name = "UserRegistrationCtl", urlPatterns = { "/UserRegistrationCtl" })
+public class UserRegistrationCtl extends BaseCtl {
 
 	public static final String OP_SIGN_UP = "Sign Up";
-	
+
 	@Override
 	protected boolean validate(HttpServletRequest request) {
-		
+
 		boolean pass = true;
-		
-		if(DataValidator.isNull(request.getParameter("firstName"))) {
-			request.setAttribute("firstName", PropertyReader.getValue("error.require","First Name"));
+
+		if (DataValidator.isNull(request.getParameter("firstName"))) {
+			request.setAttribute("firstName", PropertyReader.getValue("error.require", "First Name"));
 			pass = false;
-		}else if(!DataValidator.isName(request.getParameter("firstName"))) {
+		} else if (!DataValidator.isName(request.getParameter("firstName"))) {
 			request.setAttribute("firstName", "Invalid First Name");
 			pass = false;
 		}
-		
-		if(DataValidator.isNull(request.getParameter("lastName"))) {
+
+		if (DataValidator.isNull(request.getParameter("lastName"))) {
 			request.setAttribute("lastName", PropertyReader.getValue("error.require", "Last Name"));
 			pass = false;
-		}else if(!DataValidator.isName(request.getParameter("lastName"))) {
+		} else if (!DataValidator.isName(request.getParameter("lastName"))) {
 			request.setAttribute("lastName", "Invalid Last Name");
 			pass = false;
 		}
-		
+
 		if (DataValidator.isNull(request.getParameter("login"))) {
 			request.setAttribute("login", PropertyReader.getValue("error.require", "Login Id"));
 			pass = false;
@@ -51,11 +51,11 @@ public class UserRegistrationCtl extends BaseCtl{
 			request.setAttribute("login", PropertyReader.getValue("error.email", "Login"));
 			pass = false;
 		}
-		
-		if(DataValidator.isNull(request.getParameter("password"))) {
-			request.setAttribute("password", PropertyReader.getValue("error.require","Password"));
+
+		if (DataValidator.isNull(request.getParameter("password"))) {
+			request.setAttribute("password", PropertyReader.getValue("error.require", "Password"));
 			pass = false;
-		}else if (!DataValidator.isPasswordLength(request.getParameter("password"))) {
+		} else if (!DataValidator.isPasswordLength(request.getParameter("password"))) {
 			request.setAttribute("password", "Password should be 8 to 12 characters");
 			pass = false;
 		} else if (!DataValidator.isPassword(request.getParameter("password"))) {
@@ -97,15 +97,15 @@ public class UserRegistrationCtl extends BaseCtl{
 			request.setAttribute("mobileNo", "Invalid Mobile No");
 			pass = false;
 		}
-		
+
 		return pass;
 	}
-	
+
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
-		
+
 		UserBean bean = new UserBean();
-		
+
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
@@ -118,49 +118,45 @@ public class UserRegistrationCtl extends BaseCtl{
 		bean.setRoleId(RoleBean.STUDENT);
 
 		populateDTO(bean, request);
-		
+
 		return bean;
 	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		ServletUtility.forward(getView(), req, resp);
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ServletUtility.forward(getView(), request, response);
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String op = DataUtility.getString(req.getParameter("operation"));
-		
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String op = DataUtility.getString(request.getParameter("operation"));
+
 		UserModel model = new UserModel();
-		
-		if(OP_SIGN_UP.equalsIgnoreCase(op)) {
-			
-			UserBean bean = (UserBean) populateBean(req);
-			
+
+		if (OP_SIGN_UP.equalsIgnoreCase(op)) {
+			UserBean bean = (UserBean) populateBean(request);
 			try {
 				long pk = model.registerUser(bean);
-				ServletUtility.setBean(bean, req);
-				ServletUtility.setSuccessMessage("Registration Successful", req);
-			}catch(DuplicateRecordException e) {
-				ServletUtility.setBean(bean, req);
-				ServletUtility.setErrorMessage("Login id already exists", req);
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setSuccessMessage("Registration successful!", request);
+			} catch (DuplicateRecordException e) {
+				ServletUtility.setBean(bean, request);
+				ServletUtility.setErrorMessage("Login id already exists", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, request, response);
 				return;
 			}
-			
-			ServletUtility.forward(getView(), req, resp);
-			
+			ServletUtility.forward(getView(), request, response);
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
-			ServletUtility.redirect(ORSView.USER_REGISTRATION_CTL, req, resp);
+			ServletUtility.redirect(ORSView.USER_REGISTRATION_CTL, request, response);
 			return;
 		}
 	}
-	
+
 	@Override
 	protected String getView() {
 		return ORSView.USER_REGISTRATION_VIEW;
 	}
-
 }

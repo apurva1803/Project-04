@@ -6,15 +6,34 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * Handles all database operations for College.
+ * Supports add, update, delete, search, list, and lookup operations.
+ * 
+ * @author Apurva Deshmukh
+ */
 public class CollegeModel {
 	
+	 private static Logger log = Logger.getLogger(CollegeModel.class);
+
+	    /**
+	     * Generates the next primary key of st_college.
+	     *
+	     * @return next PK
+	     * @throws DatabaseException on DB errors
+	     */
 	public Integer nextPk() throws DatabaseException {
+		
+		log.debug("CollegeModel nextPk started");
+		
 		Connection conn = null;
 		int pk = 0;
 
@@ -34,8 +53,20 @@ public class CollegeModel {
 		}
 		return pk + 1;
 	}
-
+	
+	
+	/**
+     * Adds a new college.
+     *
+     * @param bean CollegeBean data
+     * @return generated PK
+     * @throws ApplicationException on DB errors
+     * @throws DuplicateRecordException if college name already exists
+     */
 	public long add(CollegeBean bean) throws ApplicationException, DuplicateRecordException {
+		
+		log.debug("CollegeModel add started");
+		
 		Connection conn = null;
 		int pk = 0;
 
@@ -78,8 +109,17 @@ public class CollegeModel {
 		return pk;
 	}
 
+	 /**
+     * Updates an existing college.
+     *
+     * @param bean CollegeBean
+     * @throws ApplicationException on DB errors
+     * @throws DuplicateRecordException if name already exists for another ID
+     */
 	public void update(CollegeBean bean) throws ApplicationException, DuplicateRecordException {
 
+		log.debug("CollegeModel update started for ID : " + bean.getId());
+		
 		Connection conn = null;
 
 		CollegeBean beanExist = findByName(bean.getName());
@@ -118,7 +158,16 @@ public class CollegeModel {
 		}
 	}
 
+	/**
+     * Deletes a college.
+     *
+     * @param bean CollegeBean containing ID
+     * @throws ApplicationException on DB errors
+     */
 	public void delete(CollegeBean bean) throws ApplicationException {
+		
+		log.debug("CollegeModel delete started for ID : " + bean.getId());
+		
 		Connection conn = null;
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -140,8 +189,18 @@ public class CollegeModel {
 		}
 	}
 
+	
+	/**
+     * Finds college by primary key.
+     *
+     * @param pk primary key
+     * @return CollegeBean
+     * @throws ApplicationException on DB errors
+     */
 	public CollegeBean findByPk(long pk) throws ApplicationException {
 
+		log.debug("CollegeModel findByPk started, PK = " + pk);
+		
 		StringBuffer sql = new StringBuffer("select * from st_college where id = ?");
 
 		CollegeBean bean = null;
@@ -175,8 +234,17 @@ public class CollegeModel {
 		return bean;
 	}
 
+	/**
+     * Finds college by name.
+     *
+     * @param name college name
+     * @return CollegeBean
+     * @throws ApplicationException on DB errors
+     */
 	public CollegeBean findByName(String name) throws ApplicationException {
 
+		log.debug("CollegeModel findByName started, Name = " + name);
+		
 		StringBuffer sql = new StringBuffer("select * from st_college where name = ?");
 
 		CollegeBean bean = null;
@@ -210,12 +278,30 @@ public class CollegeModel {
 		return bean;
 	}
 
+	/**
+     * Returns all colleges.
+     *
+     * @return list of CollegeBean
+     * @throws ApplicationException on DB errors
+     */
 	public List<CollegeBean> list() throws ApplicationException {
 		return search(null, 0, 0);
 	}
 
+	
+	/**
+     * Searches colleges using given parameters.
+     *
+     * @param bean optional filter
+     * @param pageNo page number
+     * @param pageSize number of rows per page
+     * @return list of colleges
+     * @throws ApplicationException on DB errors
+     */
 	public List<CollegeBean> search(CollegeBean bean, int pageNo, int pageSize) throws ApplicationException {
 
+		 log.debug("CollegeModel search started");
+		 
 		StringBuffer sql = new StringBuffer("select * from st_college where 1 = 1");
 
 		if (bean != null) {

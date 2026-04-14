@@ -1,54 +1,75 @@
 package in.co.rays.proj4.bean;
 
+/**
+ * SubjectBean represents a subject entity.
+ * It contains subject details along with the associated course.
+ *
+ * Author Apurva Deshmukh
+ */
 public class SubjectBean extends BaseBean{
 
-	private String name;
-	private long courseId;
-	private String courseName;
-	private String description;
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public long getCourseId() {
-		return courseId;
-	}
-	
-	public void setCourseId(long courseId) {
-		this.courseId = courseId;
-	}
-	
-	public String getCourseName() {
-		return courseName;
-	}
-	
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
+	/** Subject name */
+    private String name;
 
+    /** Course ID (FK) */
+    private long courseId;
 
-	@Override
-	public String getKey() {
-		return id + "";
-	}
+    /** Course name */
+    private String courseName;
 
-	@Override
-	public String getValue() {
-		return name;
-	}
-	
+    /** Subject description */
+    private String description;
+
+    /** Returns subject name */
+    public String getName() {
+        return name;
+    }
+
+    /** Sets subject name */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /** Returns course ID */
+    public long getCourseId() {
+        return courseId;
+    }
+
+    /** Sets course ID */
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
+    }
+
+    /** Returns course name */
+    public String getCourseName() {
+        return courseName;
+    }
+
+    /** Sets course name */
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    /** Returns description */
+    public String getDescription() {
+        return description;
+    }
+
+    /** Sets description */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /** Dropdown key = ID */
+    @Override
+    public String getKey() {
+        return id + "";
+    }
+
+    /** Dropdown value = Subject name */
+    @Override
+    public String getValue() {
+        return name;
+    }
 	
 }

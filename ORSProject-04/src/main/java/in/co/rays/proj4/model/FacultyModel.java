@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.bean.FacultyBean;
@@ -15,9 +17,28 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+
+/**
+ * FacultyModel manages all CRUD operations for the st_faculty table.
+ * It handles faculty creation, updation, deletion, searching and lookup
+ * by primary key or email. It also sets related college, course and subject names.
+ *
+ * author Apurva Deshmukh
+ */
 public class FacultyModel {
 
+	private static Logger log = Logger.getLogger(FacultyModel.class);
+
+    /**
+     * Generates next primary key.
+     *
+     * @return next primary key
+     * @throws DatabaseException when database error occurs
+     */
 	public Integer nextPk() throws DatabaseException {
+		
+		log.debug("FacultyModel nextPk started");
+		
 		Connection conn = null;
 		int pk = 0;
 		try {
@@ -37,7 +58,18 @@ public class FacultyModel {
 		return pk + 1;
 	}
 
+	/**
+     * Adds a new faculty record.
+     *
+     * @param bean FacultyBean
+     * @return generated primary key
+     * @throws ApplicationException on database error
+     * @throws DuplicateRecordException when email already exists
+     */
 	public long add(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
+		
+		log.debug("FacultyModel add started");
+		
 		Connection conn = null;
 		int pk = 0;
 
@@ -99,7 +131,17 @@ public class FacultyModel {
 		return pk;
 	}
 
+	/**
+     * Updates existing faculty record.
+     *
+     * @param bean FacultyBean
+     * @throws ApplicationException on database error
+     * @throws DuplicateRecordException when email already exists for another record
+     */
 	public void update(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
+		
+		log.debug("FacultyModel update started for ID : " + bean.getId());
+		
 		Connection conn = null;
 
 		// get College Name
@@ -160,7 +202,16 @@ public class FacultyModel {
 		}
 	}
 
+	/**
+     * Deletes faculty record.
+     *
+     * @param bean FacultyBean containing id
+     * @throws ApplicationException on database error
+     */
 	public void delete(FacultyBean bean) throws ApplicationException {
+		
+		log.debug("FacultyModel delete started for ID : " + bean.getId());
+		 
 		Connection conn = null;
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -182,7 +233,17 @@ public class FacultyModel {
 		}
 	}
 
+	/**
+     * Fetches Faculty by primary key.
+     *
+     * @param pk primary key
+     * @return FacultyBean
+     * @throws ApplicationException if retrieval fails
+     */
 	public FacultyBean findByPk(long pk) throws ApplicationException {
+		
+		log.debug("FacultyModel findByPk started, PK = " + pk);
+
 		StringBuffer sql = new StringBuffer("select * from st_faculty where id = ?");
 		FacultyBean bean = null;
 		Connection conn = null;
@@ -221,7 +282,17 @@ public class FacultyModel {
 		return bean;
 	}
 	
+	/**
+     * Finds faculty by email.
+     *
+     * @param email faculty email
+     * @return FacultyBean if found
+     * @throws ApplicationException if retrieval fails
+     */
 	public FacultyBean findByEmail(String email) throws ApplicationException {
+		
+		log.debug("FacultyModel findByEmail started, Email = " + email);
+
 		StringBuffer sql = new StringBuffer("select * from st_faculty where email = ?");
 		FacultyBean bean = null;
 		Connection conn = null;
@@ -262,9 +333,31 @@ public class FacultyModel {
 		}
 		return bean;
 	}
+	
+	/**
+     * Returns list of all Faculty.
+     *
+     * @return list of FacultyBean
+     * @throws ApplicationException if retrieval fails
+     */
+    public List<FacultyBean> list() throws ApplicationException {
+        return search(null, 0, 0);
+    }
 
-	public List<FacultyBean> search(FacultyBean bean, int pageNo, int pageSize) throws ApplicationException {
-		StringBuffer sql = new StringBuffer("select * from st_faculty where 1=1");
+    /**
+     * Searches faculty based on various filters.
+     *
+     * @param bean filter criteria
+     * @param pageNo page number
+     * @param pageSize number of records per page
+     * @return list of FacultyBean
+     * @throws ApplicationException if search fails
+     */
+    public List<FacultyBean> search(FacultyBean bean, int pageNo, int pageSize) throws ApplicationException {
+		
+    	log.debug("FacultyModel search started");
+    	 
+    	StringBuffer sql = new StringBuffer("select * from st_faculty where 1=1");
 
 		if (bean != null) {
 			if (bean.getId() > 0) {

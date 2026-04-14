@@ -13,8 +13,20 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.ServletUtility;
 
+/*
+ * BaseCtl is an abstract controller class that provides common functionality
+ * required by all controllers in the project. It handles tasks such as
+ * validation, preloading data, populating DTOs, and request preprocessing. <br>
+ * <br>
+ * This class also defines standard operation constants used throughout the
+ * application (Save, Update, Delete, List, Search, etc.).
+ *
+ * @author Apurva Deshmukh
+ *
+ */
 public abstract class BaseCtl extends HttpServlet{
 
+	/** Operation constants used across the project. */
 	public static final String OP_SAVE = "Save";
 	public static final String OP_UPDATE = "Update";
 	public static final String OP_CANCEL = "Cancel";
@@ -30,21 +42,52 @@ public abstract class BaseCtl extends HttpServlet{
 	public static final String OP_RESET = "Reset";
 	public static final String OP_LOG_OUT = "Logout";
 
+	/** Message keys for success and error messages. */
 	public static final String MSG_SUCCESS = "success";
 
 	public static final String MSG_ERROR = "error";
 	
+	/**
+	 * Validates input data submitted by the user. Subclasses should override this
+	 * method to implement custom validation rules.
+	 *
+	 * @param request the HttpServletRequest object
+	 * @return true if validation passes, false otherwise
+	 */
 	protected boolean validate(HttpServletRequest request) {
 		return true;
 	}
 	
+	/**
+	 * Preloads required data before loading the view. Typically used for dropdown
+	 * lists and related data. Subclasses may override this method as needed.
+	 *
+	 * @param request the HttpServletRequest object
+	 * @throws ServletException 
+	 * @throws IOException 
+	 */
 	protected void preload(HttpServletRequest request) {
 	}
 	
+	/**
+	 * Populates a bean with data from HTTP request parameters. Subclasses must
+	 * override this method to implement bean-specific logic.
+	 *
+	 * @param request the HttpServletRequest object
+	 * @return a populated BaseBean instance
+	 */
 	protected BaseBean populateBean(HttpServletRequest request) {
 		return null;
 	}
 	
+	/**
+	 * Populates audit fields of the DTO such as createdBy, modifiedBy,
+	 * createdDatetime, and modifiedDatetime.
+	 *
+	 * @param dto     the BaseBean object to populate
+	 * @param request the HttpServletRequest object
+	 * @return populated dto
+	 */
 	protected BaseBean populateDTO(BaseBean dto, HttpServletRequest request) {
 		
 		String createdBy = request.getParameter("createdBy");
@@ -78,6 +121,16 @@ public abstract class BaseCtl extends HttpServlet{
 		return dto;
 	}
 	
+	/**
+	 * Overridden service method that performs preprocessing, such as calling
+	 * preload() and validation logic before forwarding the request to doGet() or
+	 * doPost().
+	 *
+	 * @param request  the HttpServletRequest object
+	 * @param response the HttpServletResponse object
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		preload(request);
@@ -97,6 +150,12 @@ public abstract class BaseCtl extends HttpServlet{
 		super.service(request, response);
 	}
 	
+	/**
+	 * Returns the view (JSP page path) associated with this controller. Subclasses
+	 * must implement this method.
+	 *
+	 * @return view page path as String
+	 */
 	protected abstract String getView();
 	
 }
