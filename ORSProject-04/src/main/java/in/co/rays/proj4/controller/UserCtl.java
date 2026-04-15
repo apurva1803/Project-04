@@ -37,7 +37,7 @@ import in.co.rays.proj4.util.ServletUtility;
  * @see in.co.rays.proj4.model.RoleModel
  * @see in.co.rays.proj4.bean.UserBean
  */
-@WebServlet(name = "UserCtl", urlPatterns = { "/UserCtl" })
+@WebServlet(name = "UserCtl", urlPatterns = { "/ctl/UserCtl" })
 public class UserCtl extends BaseCtl{
 
 	/**

@@ -7,6 +7,10 @@
 <html>
 <head>
 <title>User Registration</title>
+
+<script src="/ORS_Project4/js/checkbox.js"></script>
+<script src="/ORS_Project4/js/datepicker.js"></script>
+
 </head>
 <body>
 	<form action="<%=ORSView.USER_REGISTRATION_CTL%>" method="post">

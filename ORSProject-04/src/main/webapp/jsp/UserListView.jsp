@@ -11,6 +11,10 @@
 <html>
 <head>
     <title>User List</title>
+    
+    <script src="/ORS_Project4/js/checkbox.js"></script>
+	<script src="/ORS_Project4/js/datepicker.js"></script>
+	
 </head>
 <body>
     <%@include file="Header.jsp"%>

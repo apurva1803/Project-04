@@ -8,24 +8,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
-import in.co.rays.proj4.bean.MarksheetBean;
+import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.exception.ApplicationException;
-import in.co.rays.proj4.model.MarksheetModel;
+import in.co.rays.proj4.exception.RecordNotFoundException;
+import in.co.rays.proj4.model.UserModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.DataValidator;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
-@WebServlet(name = "GetMarksheetCtl", urlPatterns = { "/ctl/GetMarksheetCtl" })
-public class GetMarksheetCtl extends BaseCtl {
+@WebServlet(name = "ForgetPasswordCtl", urlPatterns = { "/ForgetPasswordCtl" })
+public class ForgetPasswordCtl extends BaseCtl {
 
 	@Override
 	protected boolean validate(HttpServletRequest request) {
 
 		boolean pass = true;
 
-		if (DataValidator.isNull(request.getParameter("rollNo"))) {
-			request.setAttribute("rollNo", PropertyReader.getValue("error.require", "Roll Number"));
+		if (DataValidator.isNull(request.getParameter("login"))) {
+			request.setAttribute("login", PropertyReader.getValue("error.require", "Email Id"));
+			pass = false;
+		} else if (!DataValidator.isEmail(request.getParameter("login"))) {
+			request.setAttribute("login", PropertyReader.getValue("error.email", "Login "));
 			pass = false;
 		}
 
@@ -35,9 +39,9 @@ public class GetMarksheetCtl extends BaseCtl {
 	@Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 
-		MarksheetBean bean = new MarksheetBean();
+		UserBean bean = new UserBean();
 
-		bean.setRollNo(DataUtility.getString(request.getParameter("rollNo")));
+		bean.setLogin(DataUtility.getString(request.getParameter("login")));
 
 		return bean;
 	}
@@ -52,29 +56,28 @@ public class GetMarksheetCtl extends BaseCtl {
 
 		String op = DataUtility.getString(request.getParameter("operation"));
 
-		MarksheetModel model = new MarksheetModel();
+		UserBean bean = (UserBean) populateBean(request);
 
-		MarksheetBean bean = (MarksheetBean) populateBean(request);
+		UserModel model = new UserModel();
 
 		if (OP_GO.equalsIgnoreCase(op)) {
 			try {
-				bean = model.findByRollNo(bean.getRollNo());
-				if (bean != null) {
-					ServletUtility.setBean(bean, request);
-				} else {
-					ServletUtility.setErrorMessage("RollNo Does Not exists", request);
+				boolean flag = model.forgetPassword(bean.getLogin());
+				if (flag) {
+					ServletUtility.setSuccessMessage("Password has been sent to your email id", request);
 				}
+			} catch (RecordNotFoundException e) {
+				ServletUtility.setErrorMessage(e.getMessage(), request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, request, response);
-				return;
+				ServletUtility.setErrorMessage("Please check your internet connection..!!", request);
 			}
+			ServletUtility.forward(getView(), request, response);
 		}
-		ServletUtility.forward(getView(), request, response);
 	}
 
 	@Override
 	protected String getView() {
-		return ORSView.GET_MARKSHEET_VIEW;
+		return ORSView.FORGET_PASSWORD_VIEW;
 	}
 }
