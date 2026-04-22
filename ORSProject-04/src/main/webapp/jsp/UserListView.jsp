@@ -57,10 +57,7 @@
                         <input type="text" name="login" placeholder="Enter Email ID" 
                         value="<%=ServletUtility.getParameter("login", request)%>">&emsp;
                   
-                  		<label><b>DOB:</b></label>
-                        <input type="text" name="dob" id="udate" placeholder="Enter Date of Birth" 
-                        value="<%=ServletUtility.getParameter("dob", request)%>">&emsp;
-
+                  		
                         <label><b>Role : </b></label>
                         <%=HTMLUtility.getList("roleId", String.valueOf(bean.getRoleId()), roleList)%>&emsp;
 
