@@ -39,9 +39,6 @@ public class EscalationRuleBean extends BaseBean{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	@Override
 	public String getKey() {
 		return id + "";
