@@ -47,6 +47,7 @@
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/bean/SubjectBean.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/model/CourseModel.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/MarksheetCtl.java
+/Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/model/EscalationRuleModel.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/model/StudentModel.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/test/TestRoleModel.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/MarksheetListCtl.java
@@ -58,6 +59,7 @@
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/exception/ApplicationException.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/util/EmailBuilder.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/ORSView.java
+/Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/EscalationRuleListCtl.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/FacultyCtl.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/test/TestFacultyModel.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/UserCtl.java
@@ -65,7 +67,9 @@
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/WelcomeCtl.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/UserListCtl.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/exception/DuplicateRecordException.java
+/Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/EscalationRuleCtl.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/test/TestStudentModel.java
+/Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/bean/EscalationRuleBean.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/controller/LoginCtl.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/model/MarksheetModel.java
 /Users/apurvaraut/Desktop/ProjectWorkspace/Project-04/ORSProject-04/src/main/java/in/co/rays/proj4/test/TestSubjectModel.java

@@ -85,6 +85,12 @@ public interface ORSView {
 
 	public String FACULTY_LIST_VIEW = PAGE_FOLDER + "/FacultyListView.jsp";
 	public String FACULTY_LIST_CTL = APP_CONTEXT + "/ctl/FacultyListCtl";
+	
+	public String ESCALATIONRULE_VIEW = PAGE_FOLDER + "/EscalationRuleView.jsp";
+	public String ESCALATIONRULE_CTL = APP_CONTEXT + "/ctl/EscalationRuleCtl";
+
+	public String ESCALATIONRULE_LIST_VIEW = PAGE_FOLDER + "/EscalationRuleListView.jsp";
+	public String ESCALATIONRULE_LIST_CTL = APP_CONTEXT + "/ctl/EscalationRuleListCtl";
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ctl/ErrorCtl";
