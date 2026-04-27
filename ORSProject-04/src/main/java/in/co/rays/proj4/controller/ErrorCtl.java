@@ -22,9 +22,32 @@ public class ErrorCtl extends BaseCtl {
 
 		ServletUtility.forward(getView(), request, response);
 	}
+	
+	private void process(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		String lastCtl = (String) request.getAttribute("javax.servlet.error.request_uri");
+		if (lastCtl == null) {
+			lastCtl = (String) request.getAttribute("lastCtl");
+		}
+		String view = (String) request.getAttribute("view");
+
+
+		ServletUtility.setErrorMessage("Database server down!!!", request);
+		if (lastCtl != null && lastCtl.contains("ListCtl")) {
+
+		    if (ServletUtility.getList(request) == null) {
+		    	ServletUtility.setList(new java.util.ArrayList(), request);
+		    }
+
+		    request.setAttribute("pageNo", 1);
+		    request.setAttribute("pageSize", 10);
+		    request.setAttribute("nextListSize", 0);
+		}
+	}
 
 	@Override
 	protected String getView() {
-		return ORSView.ERROR_VIEW;
+		return ORSView.LOGIN_VIEW;
 	}
 }

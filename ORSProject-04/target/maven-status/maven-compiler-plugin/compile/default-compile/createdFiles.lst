@@ -43,6 +43,7 @@ in/co/rays/proj4/util/ServletUtility.class
 in/co/rays/proj4/controller/SubjectListCtl.class
 in/co/rays/proj4/exception/DatabaseException.class
 in/co/rays/proj4/controller/ChangePasswordCtl.class
+in/co/rays/proj4/controller/EscalationRuleCtl.class
 in/co/rays/proj4/util/EmailBuilder.class
 in/co/rays/proj4/model/TimetableModel.class
 in/co/rays/proj4/bean/BaseBean.class
@@ -54,9 +55,12 @@ in/co/rays/proj4/controller/FacultyListCtl.class
 in/co/rays/proj4/controller/CollegeListCtl.class
 in/co/rays/proj4/controller/MarksheetMeritListCtl.class
 in/co/rays/proj4/model/CollegeModel.class
+in/co/rays/proj4/model/EscalationRuleModel.class
 in/co/rays/proj4/controller/FrontCtl.class
+in/co/rays/proj4/controller/EscalationRuleListCtl.class
 in/co/rays/proj4/bean/SubjectBean.class
 in/co/rays/proj4/controller/CollegeCtl.class
+in/co/rays/proj4/bean/EscalationRuleBean.class
 in/co/rays/proj4/controller/UserListCtl.class
 in/co/rays/proj4/bean/FacultyBean.class
 in/co/rays/proj4/model/MarksheetModel.class
