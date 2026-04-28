@@ -53,9 +53,9 @@
             <table style="width: 100%">
                 <tr>
                     <td align="center">
-                       	<label><b>Rule Code :</b></label>
-                        <input type="text" name="ruleCode" placeholder="Enter Rule Code" 
-                        value="<%=ServletUtility.getParameter("ruleCode", request)%>">&emsp;
+                       	<label><b>Device name:</b></label>
+                        <input type="text" name="ruleCode" placeholder="Enter Device Name" 
+                        value="<%=ServletUtility.getParameter("deviceName", request)%>">&emsp;
                        
                        
                         <input type="submit" name="operation" value="<%=RepairListCtl.OP_SEARCH%>">&nbsp;

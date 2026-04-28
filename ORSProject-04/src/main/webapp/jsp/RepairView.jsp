@@ -53,7 +53,7 @@
 
             <table>
                 <tr>
-                    <th align="left">Rule Code<span style="color: red">*</span></th>
+                    <th align="left">Device Name<span style="color: red">*</span></th>
                     <td align="center">
                         <input type="text" name="deviceName" placeholder="Enter Device Name" value="<%=DataUtility.getStringData(bean.getDeviceName())%>">
                     </td>
@@ -67,7 +67,7 @@
                 
 
                 <tr>
-                    <th align="left">Level<span style="color: red">*</span></th>
+                    <th align="left">Repair Date<span style="color: red">*</span></th>
                     <td align="center">
                         <input type="text" name="repairDate" placeholder="Enter repair Date" value="<%=DataUtility.getStringData(bean.getRepairDate())%>">
                     </td>
@@ -79,7 +79,7 @@
                 </tr>
                 
                 <tr>
-                    <th align="left">Assigned To<span style="color: red">*</span></th>
+                    <th align="left">Cost<span style="color: red">*</span></th>
                     <td align="center">
                         <input type="text" name="cost" placeholder="Enter cost" value="<%=DataUtility.getStringData(bean.getCost())%>">
                     </td>
