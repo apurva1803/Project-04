@@ -91,6 +91,12 @@ public interface ORSView {
 
 	public String ESCALATIONRULE_LIST_VIEW = PAGE_FOLDER + "/EscalationRuleListView.jsp";
 	public String ESCALATIONRULE_LIST_CTL = APP_CONTEXT + "/ctl/EscalationRuleListCtl";
+	
+	public String REPAIR_VIEW = PAGE_FOLDER + "/RepairView.jsp";
+	public String REPAIR_CTL = APP_CONTEXT + "/ctl/RepairCtl";
+
+	public String REPAIR_LIST_VIEW = PAGE_FOLDER + "/RepairListView.jsp";
+	public String REPAIR_LIST_CTL = APP_CONTEXT + "/ctl/RepairListCtl";
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ctl/ErrorCtl";
