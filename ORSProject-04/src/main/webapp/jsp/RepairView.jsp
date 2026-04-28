@@ -69,7 +69,7 @@
                 <tr>
                     <th align="left">Repair Date<span style="color: red">*</span></th>
                     <td align="center">
-                        <input type="text" name="repairDate" placeholder="Enter repair Date" value="<%=DataUtility.getStringData(bean.getRepairDate())%>">
+                        <input type="text" name="repairDate" placeholder="Enter repair Date" id ="udate" value="<%=DataUtility.getStringData(bean.getRepairDate())%>">
                     </td>
                     <td style="position: fixed;">
                         <font color="red">
