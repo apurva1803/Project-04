@@ -45,6 +45,14 @@ public class DataUtility {
 			return 0;
 		}
 	}
+	
+	public static Double getDouble(String val) {
+		if (DataValidator.isDouble(val)) {
+			return Double.parseDouble(val);
+		} else {
+			return 0.0;
+		}
+	}
 
 	public static Date getDate(String val) {
 		Date date = null;

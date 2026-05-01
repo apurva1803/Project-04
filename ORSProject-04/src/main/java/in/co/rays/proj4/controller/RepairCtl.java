@@ -25,17 +25,17 @@ protected boolean validate(HttpServletRequest request) {
 		boolean pass = true;
 
 		if (DataValidator.isNull(request.getParameter("deviceName"))) {
-			request.setAttribute("ruleCode", PropertyReader.getValue("error.require", "device Name"));
+			request.setAttribute("deviceName", PropertyReader.getValue("error.require", "device Name"));
 			pass = false;
 		} 
 
 		if (DataValidator.isNull(request.getParameter("repairDate"))) {
-			request.setAttribute("level", PropertyReader.getValue("error.require", "repair Date"));
+			request.setAttribute("repairDate", PropertyReader.getValue("error.require", "repair Date"));
 			pass = false;
 		}
 
 		if (DataValidator.isNull(request.getParameter("cost"))) {
-			request.setAttribute("description", PropertyReader.getValue("error.require", "cost"));
+			request.setAttribute("cost", PropertyReader.getValue("error.require", "cost"));
 			pass = false;
 		}
 		
@@ -51,7 +51,7 @@ protected boolean validate(HttpServletRequest request) {
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		bean.setDeviceName(DataUtility.getString(request.getParameter("deviceName")));
 		bean.setRepairDate(DataUtility.getDate(request.getParameter("repairDate")));
-		bean.setCost((double) DataUtility.getInt(request.getParameter("cost")));
+		bean.setCost(DataUtility.getDouble(request.getParameter("cost")));
 		
 
 		populateDTO(bean, request);
@@ -72,7 +72,7 @@ protected boolean validate(HttpServletRequest request) {
 				ServletUtility.setBean(bean, req);
 			} catch (Exception e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}	
@@ -100,7 +100,7 @@ protected boolean validate(HttpServletRequest request) {
 				ServletUtility.setErrorMessage("Data already exists", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}else if (OP_UPDATE.equalsIgnoreCase(op)) {
@@ -116,7 +116,7 @@ protected boolean validate(HttpServletRequest request) {
 				ServletUtility.setErrorMessage("Data already exists", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
@@ -132,7 +132,6 @@ protected boolean validate(HttpServletRequest request) {
 	
 	@Override
 	protected String getView() {
-		// TODO Auto-generated method stub
 		return ORSView.REPAIR_VIEW;
 	}
 

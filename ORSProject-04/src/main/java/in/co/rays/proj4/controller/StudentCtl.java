@@ -153,7 +153,7 @@ public class StudentCtl extends BaseCtl{
 				ServletUtility.setErrorMessage("Email already exists", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, request, response);
+				ServletUtility.handleException(e, request, response, getView());
 				return;
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
@@ -169,7 +169,7 @@ public class StudentCtl extends BaseCtl{
 				ServletUtility.setErrorMessage("Email already exists", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, request, response);
+				ServletUtility.handleException(e, request, response, getView());
 				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {

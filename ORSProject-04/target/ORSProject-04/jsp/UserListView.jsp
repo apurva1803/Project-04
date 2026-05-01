@@ -11,9 +11,7 @@
 <html>
 <head>
     <title>User List</title>
-    
-    <script src="/ORS_Project4/js/checkbox.js"></script>
-	<script src="/ORS_Project4/js/datepicker.js"></script>
+    <link rel="icon" type="image/png" href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 	
 </head>
 <body>

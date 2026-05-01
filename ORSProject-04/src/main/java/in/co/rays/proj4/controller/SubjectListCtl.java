@@ -79,7 +79,7 @@ public class SubjectListCtl extends BaseCtl {
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			ServletUtility.handleException(e, request, response);
+			ServletUtility.handleException(e, request, response, getView());
 			return;
 		}
 	}
@@ -157,7 +157,7 @@ public class SubjectListCtl extends BaseCtl {
 			ServletUtility.forward(getView(), request, response);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			ServletUtility.handleException(e, request, response);
+			ServletUtility.handleException(e, request, response, getView());
 			return;
 		}
 	}

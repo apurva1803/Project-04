@@ -33,7 +33,7 @@ public class LoginCtl extends BaseCtl {
 		boolean pass = true;
 
 		String op = request.getParameter("operation");
-		
+
 		if (OP_SIGN_UP.equals(op) || OP_LOG_OUT.equals(op)) {
 			return pass;
 		}
@@ -94,6 +94,8 @@ public class LoginCtl extends BaseCtl {
 			try {
 				bean = model.authenticate(bean.getLogin(), bean.getPassword());
 
+				String uri = request.getParameter("URI");
+
 				if (bean != null) {
 
 					session.setAttribute("user", bean);
@@ -103,8 +105,15 @@ public class LoginCtl extends BaseCtl {
 					if (rolebean != null) {
 						session.setAttribute("role", rolebean.getName());
 					}
-					ServletUtility.redirect(ORSView.WELCOME_CTL, request, response);
-					return;
+
+					if ("null".equalsIgnoreCase(uri)) {
+						ServletUtility.redirect(ORSView.WELCOME_CTL, request, response);
+						return;
+					} else {
+						ServletUtility.redirect(uri, request, response);
+						return;
+					}
+
 				} else {
 					bean = (UserBean) populateBean(request);
 					ServletUtility.setBean(bean, request);
@@ -112,7 +121,7 @@ public class LoginCtl extends BaseCtl {
 				}
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, request, response);
+				ServletUtility.handleException(e, request, response, getView());
 				return;
 			}
 		} else if (OP_SIGN_UP.equalsIgnoreCase(op)) {
@@ -126,4 +135,4 @@ public class LoginCtl extends BaseCtl {
 	protected String getView() {
 		return ORSView.LOGIN_VIEW;
 	}
-}		
+}

@@ -116,4 +116,14 @@ public class ServletUtility {
 		request.setAttribute("exception", e);
 		response.sendRedirect(ORSView.ERROR_CTL);
 	}
+	
+	public static void handleException(Exception e, HttpServletRequest request, HttpServletResponse response, String view)
+    		throws IOException, ServletException {
+    	String lastCtl = (String) request.getAttribute("ORIGINAL_CTL");
+    	request.setAttribute("lastCtl", lastCtl);
+    	request.setAttribute("javax.servlet.error.exception", e);
+    	request.setAttribute("view", view);
+    	RequestDispatcher rd = request.getRequestDispatcher(ORSView.ERROR_CTL);
+        rd.forward(request, response);
+    }
 }

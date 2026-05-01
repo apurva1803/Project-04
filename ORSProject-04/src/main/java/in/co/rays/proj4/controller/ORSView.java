@@ -97,6 +97,12 @@ public interface ORSView {
 
 	public String REPAIR_LIST_VIEW = PAGE_FOLDER + "/RepairListView.jsp";
 	public String REPAIR_LIST_CTL = APP_CONTEXT + "/ctl/RepairListCtl";
+	
+	public String JOBQUEUE_VIEW = PAGE_FOLDER + "/JobQueueView.jsp";
+	public String JOBQUEUE_CTL = APP_CONTEXT + "/ctl/JobQueueCtl";
+
+	public String JOBQUEUE_LIST_VIEW = PAGE_FOLDER + "/JobQueueListView.jsp";
+	public String JOBQUEUE_LIST_CTL = APP_CONTEXT + "/ctl/JobQueueListCtl";
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ctl/ErrorCtl";

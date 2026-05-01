@@ -35,7 +35,7 @@ protected boolean validate(HttpServletRequest request) {
 		}
 
 		if (DataValidator.isNull(request.getParameter("assignedTo"))) {
-			request.setAttribute("description", PropertyReader.getValue("error.require", "assignedTo"));
+			request.setAttribute("assignedTo", PropertyReader.getValue("error.require", "assignedTo"));
 			pass = false;
 		}
 		
@@ -76,7 +76,7 @@ protected boolean validate(HttpServletRequest request) {
 				ServletUtility.setBean(bean, req);
 			} catch (Exception e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}	
@@ -104,7 +104,7 @@ protected boolean validate(HttpServletRequest request) {
 				ServletUtility.setErrorMessage("Data already exists", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}else if (OP_UPDATE.equalsIgnoreCase(op)) {
@@ -120,7 +120,7 @@ protected boolean validate(HttpServletRequest request) {
 				ServletUtility.setErrorMessage("Data already exists", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {

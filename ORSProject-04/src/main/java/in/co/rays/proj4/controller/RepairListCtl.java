@@ -27,7 +27,9 @@ public class RepairListCtl extends BaseCtl{
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		bean.setDeviceName(DataUtility.getString(request.getParameter("deviceName")));
 		bean.setRepairDate(DataUtility.getDate(request.getParameter("repairDate")));
-		bean.setCost((double) DataUtility.getInt(request.getParameter("cost")));
+		bean.setCost(DataUtility.getDouble(request.getParameter("cost")));
+		
+		populateDTO(bean, request);
 		
 		return bean;
 	}
@@ -58,7 +60,7 @@ public class RepairListCtl extends BaseCtl{
 			ServletUtility.forward(getView(), req, resp);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			ServletUtility.handleException(e, req, resp);
+			ServletUtility.handleException(e, req, resp, getView());
 			return;
 		}
 	}
@@ -136,7 +138,7 @@ public class RepairListCtl extends BaseCtl{
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			ServletUtility.handleException(e, req, resp);
+			ServletUtility.handleException(e, req, resp, getView());
 			return;
 		}
 	}

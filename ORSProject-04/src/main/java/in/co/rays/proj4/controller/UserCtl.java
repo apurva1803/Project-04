@@ -57,8 +57,9 @@ public class UserCtl extends BaseCtl{
 			List<RoleBean> roleList = roleModel.list();
 			System.out.println("roleList size ==> " + roleList.size());
 			request.setAttribute("roleList", roleList);
-		} catch (Exception e) {
+		} catch (ApplicationException e) {
 			e.printStackTrace();
+			return;
 		}
 	}
 	
@@ -201,6 +202,7 @@ public class UserCtl extends BaseCtl{
 				ServletUtility.setBean(bean, req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}
@@ -235,6 +237,7 @@ public class UserCtl extends BaseCtl{
 				ServletUtility.setErrorMessage("Login Id already exists", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}else if (OP_UPDATE.equalsIgnoreCase(op)) {
@@ -252,6 +255,7 @@ public class UserCtl extends BaseCtl{
 				ServletUtility.setErrorMessage("Login Id already exists", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}else if (OP_CANCEL.equalsIgnoreCase(op)) {

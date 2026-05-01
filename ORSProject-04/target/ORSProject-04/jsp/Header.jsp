@@ -86,6 +86,14 @@
 	<a href="<%=ORSView.ESCALATIONRULE_CTL%>"><b>Add Escalation Rule</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.ESCALATIONRULE_LIST_CTL%>"><b>Escalation Rule List</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.REPAIR_CTL%>"><b>Add Repair</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.REPAIR_LIST_CTL%>"><b>Repair List</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.JOBQUEUE_CTL%>"><b>Add Job Queue</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.JOBQUEUE_LIST_CTL%>"><b>Job Queue List</b></a>
 	
 	
 	<b>|</b>

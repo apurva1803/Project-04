@@ -63,7 +63,7 @@ public class EscalationRuleListCtl extends BaseCtl{
 			ServletUtility.forward(getView(), req, resp);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			ServletUtility.handleException(e, req, resp);
+			ServletUtility.handleException(e, req, resp, getView());
 			return;
 		}
 	}
@@ -141,7 +141,7 @@ public class EscalationRuleListCtl extends BaseCtl{
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			ServletUtility.handleException(e, req, resp);
+			ServletUtility.handleException(e, req, resp, getView());
 			return;
 		}
 	}

@@ -92,7 +92,7 @@ public class CollegeCtl extends BaseCtl{
 				ServletUtility.setBean(bean, req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}
@@ -120,7 +120,7 @@ public class CollegeCtl extends BaseCtl{
 				ServletUtility.setErrorMessage("College Name already exist", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 			
@@ -138,7 +138,7 @@ public class CollegeCtl extends BaseCtl{
 				ServletUtility.setErrorMessage("College Name is already exist", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {
 			ServletUtility.redirect(ORSView.COLLEGE_LIST_CTL, req, resp);

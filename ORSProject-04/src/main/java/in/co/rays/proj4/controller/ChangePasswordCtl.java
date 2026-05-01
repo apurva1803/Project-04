@@ -111,7 +111,7 @@ public class ChangePasswordCtl extends BaseCtl {
 				ServletUtility.setErrorMessage("Old Password is Invalid", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, request, response);
+				ServletUtility.handleException(e, request, response, getView());
 				return;
 			}
 		} else if (OP_CHANGE_MY_PROFILE.equalsIgnoreCase(op)) {

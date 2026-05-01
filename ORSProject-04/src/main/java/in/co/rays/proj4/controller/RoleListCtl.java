@@ -128,6 +128,7 @@ public class RoleListCtl extends BaseCtl{
 			ServletUtility.forward(getView(), req, resp);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, req, resp, getView());
 			return;
 		}
 	}

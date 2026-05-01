@@ -68,7 +68,7 @@ public class CourseListCtl extends BaseCtl{
 			ServletUtility.forward(getView(), req, resp);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			ServletUtility.handleException(e, req, resp);
+			ServletUtility.handleException(e, req, resp, getView());
 			return;
 		}
 	}
@@ -146,7 +146,7 @@ public class CourseListCtl extends BaseCtl{
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
-			ServletUtility.handleException(e, req, resp);
+			ServletUtility.handleException(e, req, resp, getView());
 			return;
 		}
 	}

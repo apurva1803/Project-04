@@ -74,7 +74,7 @@ public class CourseCtl extends BaseCtl{
 				ServletUtility.setBean(bean, req);
 			} catch (Exception e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}	
@@ -102,7 +102,7 @@ public class CourseCtl extends BaseCtl{
 				ServletUtility.setErrorMessage("Course already exists", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		}else if (OP_UPDATE.equalsIgnoreCase(op)) {
@@ -118,7 +118,7 @@ public class CourseCtl extends BaseCtl{
 				ServletUtility.setErrorMessage("Course already exists", req);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, req, resp);
+				ServletUtility.handleException(e, req, resp, getView());
 				return;
 			}
 		} else if (OP_CANCEL.equalsIgnoreCase(op)) {

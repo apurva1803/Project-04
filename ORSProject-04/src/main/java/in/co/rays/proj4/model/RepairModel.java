@@ -209,7 +209,7 @@ public class RepairModel {
 	 */
 	public RepairBean findByName(String name) throws ApplicationException {
 
-		StringBuffer sql = new StringBuffer("select * from Repair where assignedTo = ?");
+		StringBuffer sql = new StringBuffer("select * from Repair where deviceName = ?");
 		RepairBean bean = null;
 		Connection conn = null;
 		try {
@@ -275,8 +275,8 @@ public class RepairModel {
 			if (bean.getRepairDate() != null && bean.getRepairDate().getTime() > 0) {
 				sql.append(" and repairDate like '" + new java.sql.Date(bean.getRepairDate().getTime()) + "%'");
 			}
-			if (bean.getCost() > 0) {
-				sql.append(" and cost like '" + bean.getCost() + "%'");
+			if (bean.getCost() != null && bean.getCost() > 0) {
+				sql.append(" and cost = '" + bean.getCost());
 			}
 		}
 
