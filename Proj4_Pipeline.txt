@@ -2,12 +2,13 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = "/opt/homebrew/Cellar/openjdk@17/17.0.19/libexec/openjdk.jdk/Contents/Home"
-        PATH = "${JAVA_HOME}/bin:/usr/local/bin:/opt/homebrew/bin:${PATH}"
+        JAVA_HOME = "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home"
+        MAVEN_HOME = "/opt/homebrew/opt/maven"
 
-        MAVEN_HOME = "/opt/homebrew/Cellar/maven/3.9.14/libexec"  // adjust if needed
-        TOMCAT_HOME = "/Users/apurvaraut/Downloads/apache-tomcat-9.0.115" // adjust version
+        TOMCAT_HOME = "/opt/homebrew/opt/tomcat@9/libexec"
         TOMCAT_WEBAPPS_PATH = "${TOMCAT_HOME}/webapps"
+
+        PATH = "/opt/homebrew/bin:/usr/local/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${PATH}"
     }
 
     stages {
@@ -18,19 +19,35 @@ pipeline {
             }
         }
 
+        // ✅ OPTIONAL: Start only if not running
+        stage('Ensure Tomcat Running') {
+            steps {
+                sh '''
+                echo "Checking if Tomcat is running on port 1999..."
+
+                if lsof -i :1999 > /dev/null
+                then
+                    echo "Tomcat already running"
+                else
+                    echo "Starting Tomcat..."
+                    brew services start tomcat@9
+                    echo "Waiting for Tomcat startup..."
+                    sleep 20
+                fi
+                '''
+            }
+        }
+
         stage('Clone Repository') {
             steps {
-                git credentialsId: 'github-credentials',
-                    url: 'https://github.com/apurva1803/Project-04.git',
+                git url: 'https://github.com/apurva1803/Project-04.git',
                     branch: 'main'
             }
         }
 
         stage('Build WAR File') {
             steps {
-                sh """
-                ${MAVEN_HOME}/bin/mvn clean package -DskipTests -f ORSProject-04/pom.xml
-                """
+                sh "mvn clean package -DskipTests -f ORSProject-04/pom.xml"
             }
         }
 
@@ -40,41 +57,47 @@ pipeline {
                     def warFile = "ORSProject-04/target/ORSProject-04.war"
                     def destination = "${TOMCAT_WEBAPPS_PATH}/ORSProject-04.war"
 
-                    sh """
-                    rm -rf ${TOMCAT_WEBAPPS_PATH}/ORSProject-04
-                    rm -f ${destination}
-                    cp ${warFile} ${destination}
-                    """
+                    echo "Removing old deployment..."
+                    sh "rm -rf ${TOMCAT_WEBAPPS_PATH}/ORSProject-04"
+                    sh "rm -f ${destination}"
+
+                    echo "Deploying new WAR..."
+                    sh "cp ${warFile} ${destination}"
+
+                    echo "Waiting for WAR extraction..."
+                    sleep 15
                 }
             }
         }
 
-        stage('Restart Tomcat') {
+        // ✅ FIXED: Stateless health check (NO SESSION)
+        stage('Verify Deployment (Robust)') {
             steps {
-                sh """
-                echo "Stopping Tomcat..."
-                ${TOMCAT_HOME}/bin/shutdown.sh || true
-                sleep 5
+                sh '''
+                echo "Checking application health..."
 
-                echo "Starting Tomcat..."
-                ${TOMCAT_HOME}/bin/startup.sh
-                """
-            }
-        }
+                for i in {1..15}
+                do
+                  STATUS=$(curl -I -s -o /dev/null -w "%{http_code}" http://localhost:1999/ORSProject-04/)
 
-        stage('Verify Deployment') {
-            steps {
-                sh """
-                sleep 10
-                curl -I http://localhost:8080/ORSProject-04 || echo "Tomcat not reachable"
-                """
+                  if [ "$STATUS" = "200" ] || [ "$STATUS" = "302" ]; then
+                    echo "✅ Application is UP (HTTP $STATUS)"
+                    exit 0
+                  fi
+
+                  echo "Retry $i - Status: $STATUS"
+                  sleep 5
+                done
+
+                echo "❌ Application failed to start"
+                exit 1
+                '''
             }
         }
     }
 
     post {
         always {
-            echo 'Cleaning workspace...'
             deleteDir()
         }
     }

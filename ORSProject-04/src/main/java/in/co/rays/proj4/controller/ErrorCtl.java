@@ -48,6 +48,6 @@ public class ErrorCtl extends BaseCtl {
 
 	@Override
 	protected String getView() {
-		return ORSView.ERROR_VIEW;
+		return ORSView.LOGIN_VIEW;
 	}
 }
