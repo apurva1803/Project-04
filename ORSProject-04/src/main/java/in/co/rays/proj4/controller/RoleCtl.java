@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.RoleModel;
 import in.co.rays.proj4.util.DataUtility;
@@ -99,6 +100,9 @@ public class RoleCtl extends BaseCtl {
 				e.printStackTrace();
 				ServletUtility.handleException(e, request, response, getView());
 				return;
+			} catch (DatabaseException e) {
+				e.printStackTrace();
+				ServletUtility.handleException(e, request, response, getView());
 			}
 		} else if (OP_UPDATE.equalsIgnoreCase(op)) {
 

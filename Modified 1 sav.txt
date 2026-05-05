@@ -5,7 +5,7 @@ pipeline {
         JAVA_HOME = "/opt/homebrew/Cellar/openjdk@17/17.0.19/libexec/openjdk.jdk/Contents/Home"
         MAVEN_HOME = "/opt/homebrew/opt/maven"
 
-        TOMCAT_HOME = "/Users/apurvaraut/tomcat"
+        TOMCAT_HOME = "/opt/homebrew/opt/tomcat@9/libexec"
         TOMCAT_WEBAPPS_PATH = "${TOMCAT_HOME}/webapps"
 
         PATH = "/opt/homebrew/bin:/usr/local/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${PATH}"
@@ -32,7 +32,7 @@ pipeline {
                 sleep 10
 
                 echo "Verifying Tomcat port..."
-                lsof -i :8080 || true
+                lsof -i :8888 || true
                 '''
             }
         }
@@ -74,7 +74,7 @@ pipeline {
                 i=1
                 while [ $i -le 12 ]
                 do
-                  STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8080/ORSProject-04/)
+                  STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8888/ORSProject-04/)
 
                   if [ "$STATUS" = "200" ] || [ "$STATUS" = "302" ]; then
                     echo "Application is UP (HTTP $STATUS)"

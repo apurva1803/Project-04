@@ -20,7 +20,7 @@ import in.co.rays.proj4.util.ServletUtility;
 public class CourseListCtl extends BaseCtl{
 
 	@Override
-	protected void preload(HttpServletRequest request) {
+	protected void preload(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		CourseModel courseModel = new CourseModel();
 
 		try {
@@ -28,6 +28,8 @@ public class CourseListCtl extends BaseCtl{
 			request.setAttribute("courseList", courseList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response, getView());
+			return;
 		}
 	}
 	

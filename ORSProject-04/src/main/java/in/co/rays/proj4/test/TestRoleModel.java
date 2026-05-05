@@ -8,6 +8,7 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.RoleModel;
 
@@ -15,7 +16,7 @@ public class TestRoleModel {
 	
 	public static RoleModel model = new RoleModel();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws DatabaseException {
 		
 		testAdd();
 		//testUpdate();
@@ -122,7 +123,7 @@ public class TestRoleModel {
 		
 	}
 
-	public static void testAdd() {
+	public static void testAdd() throws DatabaseException {
 		
 		RoleBean bean = new RoleBean();
 		

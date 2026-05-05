@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -16,29 +14,25 @@ import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 /**
- * StudentModel handles all database operations related to student records. It
- * supports adding, updating, deleting, searching, and retrieving student
- * information. It also manages mapping between StudentBean and the st_student
- * table.
+ * StudentModel provides CRUD and search operations for StudentBean,
+ * interacting with the {@code st_student} table via JDBC.
  *
- * This model also ensures unique email validation and resolves college details
- * using CollegeModel.
+ * <p>
+ * This class throws application-specific exceptions defined in the project
+ * (ApplicationException, DatabaseException, DuplicateRecordException).
+ * </p>
  *
- * author Apurva Deshmukh
+ * @author Apurva Deshmukh
+ * @version 1.0
  */
 public class StudentModel {
-
-	private static Logger log = Logger.getLogger(StudentModel.class);
-
 	/**
-	 * Returns next primary key for st_student table.
+	 * Returns next primary key value for st_student table.
 	 *
-	 * @return next primary key
-	 * @throws DatabaseException if database access fails
+	 * @return next primary key (Integer)
+	 * @throws DatabaseException if a database access error occurs
 	 */
 	public Integer nextPk() throws DatabaseException {
-
-		log.debug("nextPk() started");
 
 		Connection conn = null;
 		int pk = 0;
@@ -61,17 +55,15 @@ public class StudentModel {
 	}
 
 	/**
-	 * Adds a new student record.
+	 * Adds a new student record into database.
 	 *
-	 * @param bean StudentBean containing student information
-	 * @return generated primary key
-	 * @throws ApplicationException     if insert fails
-	 * @throws DuplicateRecordException if email already exists
+	 * @param bean StudentBean containing student data to add
+	 * @return primary key of newly inserted student
+	 * @throws ApplicationException     if any SQL exception occurs while adding student
+	 * @throws DuplicateRecordException if a student with same email already exists
 	 */
 	public long add(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 
-		log.info("add() called for Role : " + bean.getFirstName());
-		
 		Connection conn = null;
 
 		CollegeModel collegeModel = new CollegeModel();
@@ -124,14 +116,12 @@ public class StudentModel {
 	/**
 	 * Updates an existing student record.
 	 *
-	 * @param bean StudentBean containing updated info
-	 * @throws ApplicationException     if update fails
-	 * @throws DuplicateRecordException if another student already uses same email
+	 * @param bean StudentBean containing updated values (must include id)
+	 * @throws ApplicationException     if a SQL error occurs while updating
+	 * @throws DuplicateRecordException if another student with same email exists
 	 */
 	public void update(StudentBean bean) throws ApplicationException, DuplicateRecordException {
 
-		log.info("update() called for Role ID : " + bean.getId());
-		
 		Connection conn = null;
 
 		StudentBean existBean = findByEmailId(bean.getEmail());
@@ -179,15 +169,13 @@ public class StudentModel {
 	}
 
 	/**
-	 * Deletes a student record.
+	 * Deletes a student record from database.
 	 *
-	 * @param bean StudentBean containing student ID
-	 * @throws ApplicationException if delete operation fails
+	 * @param bean StudentBean containing id of student to delete
+	 * @throws ApplicationException if a SQL error occurs during delete
 	 */
 	public void delete(StudentBean bean) throws ApplicationException {
 
-		log.info("delete() called for Role ID : " + bean.getId());
-		
 		Connection conn = null;
 
 		try {
@@ -212,16 +200,14 @@ public class StudentModel {
 	}
 
 	/**
-	 * Finds student by primary key.
+	 * Finds a student by primary key.
 	 *
-	 * @param pk primary key
-	 * @return StudentBean if found, else null
-	 * @throws ApplicationException if retrieval fails
+	 * @param pk primary key of student
+	 * @return StudentBean if found, otherwise null
+	 * @throws ApplicationException if a SQL error occurs while fetching data
 	 */
 	public StudentBean findByPk(long pk) throws ApplicationException {
 
-		log.debug("findByPk() called PK : " + pk);
-		
 		StringBuffer sql = new StringBuffer("select * from st_student where id = ?");
 		StudentBean bean = null;
 		Connection conn = null;
@@ -258,16 +244,14 @@ public class StudentModel {
 	}
 
 	/**
-	 * Finds student by email address.
+	 * Finds a student by email.
 	 *
-	 * @param Email email ID
-	 * @return StudentBean if found else null
-	 * @throws ApplicationException if retrieval fails
+	 * @param Email student's email to find
+	 * @return StudentBean if found, otherwise null
+	 * @throws ApplicationException if a SQL error occurs while fetching data
 	 */
 	public StudentBean findByEmailId(String Email) throws ApplicationException {
 
-		log.debug("findByEmailId() called Name : " + Email);
-		
 		StringBuffer sql = new StringBuffer("select * from st_student where email = ?");
 		StudentBean bean = null;
 		Connection conn = null;
@@ -304,29 +288,26 @@ public class StudentModel {
 	}
 
 	/**
-	 * Returns full list of students.
+	 * Returns all students.
 	 *
-	 * @return list of StudentBean
-	 * @throws ApplicationException if operation fails
+	 * @return List of StudentBean
+	 * @throws ApplicationException if a SQL error occurs during retrieval
 	 */
 	public List<StudentBean> list() throws ApplicationException {
-		log.debug("list() called");
 		return search(null, 0, 0);
 	}
 
 	/**
-	 * Searches students using given criteria.
+	 * Searches students based on provided filter bean and supports pagination.
 	 *
-	 * @param bean     search parameters
-	 * @param pageNo   page number
-	 * @param pageSize number of rows per page
-	 * @return list of matching StudentBean
-	 * @throws ApplicationException if search fails
+	 * @param bean     StudentBean filter (null means no filter)
+	 * @param pageNo   page number (1-based). If pageSize &gt; 0, pageNo is used to compute offset.
+	 * @param pageSize number of records per page. If 0, returns all matching rows.
+	 * @return List of StudentBean matching criteria
+	 * @throws ApplicationException if a SQL error occurs during search
 	 */
 	public List<StudentBean> search(StudentBean bean, int pageNo, int pageSize) throws ApplicationException {
 
-		log.debug("search() called");
-		
 		StringBuffer sql = new StringBuffer("select * from st_student where 1 = 1");
 
 		if (bean != null) {
@@ -334,22 +315,22 @@ public class StudentModel {
 				sql.append(" and id = " + bean.getId());
 			}
 			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
-				sql.append(" and first_name like '" + bean.getFirstName() + "%'");
+				sql.append(" and first_name like '%" + bean.getFirstName() + "%'");
 			}
 			if (bean.getLastName() != null && bean.getLastName().length() > 0) {
-				sql.append(" and last_name like '" + bean.getLastName() + "%'");
+				sql.append(" and last_name like '%" + bean.getLastName() + "%'");
 			}
 			if (bean.getDob() != null && bean.getDob().getDate() > 0) {
 				sql.append(" and dob = " + bean.getDob());
 			}
 			if (bean.getGender() != null && bean.getGender().length() > 0) {
-				sql.append(" and gender like '" + bean.getGender() + "%'");
+				sql.append(" and gender like '%" + bean.getGender() + "%'");
 			}
 			if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
-				sql.append(" and mobile_no like '" + bean.getMobileNo() + "%'");
+				sql.append(" and mobile_no like '%" + bean.getMobileNo() + "%'");
 			}
 			if (bean.getEmail() != null && bean.getEmail().length() > 0) {
-				sql.append(" and email like '" + bean.getEmail() + "%'");
+				sql.append(" and email like '%" + bean.getEmail() + "%'");
 			}
 			if (bean.getCollegeName() != null && bean.getCollegeName().length() > 0) {
 				sql.append(" and college_name = " + bean.getCollegeName());

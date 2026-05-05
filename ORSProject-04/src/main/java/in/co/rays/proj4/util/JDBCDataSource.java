@@ -7,6 +7,9 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.mysql.cj.exceptions.CJCommunicationsException;
+
+import in.co.rays.proj4.exception.DatabaseDownException;
 
 public final class JDBCDataSource {
 
@@ -20,7 +23,13 @@ public final class JDBCDataSource {
 		try {
 			cpds = new ComboPooledDataSource();
 			cpds.setDriverClass(rb.getString("driver"));
+
+			
+
+			
 			cpds.setJdbcUrl(rb.getString("url"));
+		
+
 			cpds.setUser(rb.getString("username"));
 			cpds.setPassword(rb.getString("password"));
 			cpds.setInitialPoolSize(Integer.parseInt(rb.getString("initialpoolsize")));
@@ -41,6 +50,8 @@ public final class JDBCDataSource {
 	public static Connection getConnection() {
 		try {
 			return getInstance().cpds.getConnection();
+		} catch (CJCommunicationsException ce) {
+			throw new DatabaseDownException("Database Server Down");
 		} catch (SQLException e) {
 			return null;
 		}

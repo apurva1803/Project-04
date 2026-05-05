@@ -25,7 +25,7 @@ import in.co.rays.proj4.util.ServletUtility;
 public class FacultyCtl extends BaseCtl {
 
 	@Override
-	protected void preload(HttpServletRequest request) {
+	protected void preload(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		CollegeModel collegeModel = new CollegeModel();
 		SubjectModel subjectModel = new SubjectModel();
@@ -43,6 +43,8 @@ public class FacultyCtl extends BaseCtl {
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response, getView());
+			return;
 		}
 	}
 

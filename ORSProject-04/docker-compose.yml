@@ -18,15 +18,14 @@ services:
       context: .
     container_name: ORSProject-04-webapp
     ports:
-      - "8080:8080"   
+       - "9090:9090"  
     networks:
       - mynetwork
     depends_on:
       - mysql
     environment:
       DATABASE_URL: jdbc:mysql://mysql:3306/project04
-      DATABASE_USERNAME: root
-      DATABASE_PASSWORD: root
+     
     
 
 networks:

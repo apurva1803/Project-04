@@ -58,6 +58,8 @@ public class FacultyListCtl extends BaseCtl {
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response, getView());
+			return;
 		}
 
 	}

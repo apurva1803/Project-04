@@ -6,8 +6,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.exceptions.CJCommunicationsException;
+
 import in.co.rays.proj4.bean.EscalationRuleBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DatabaseDownException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
@@ -27,7 +30,10 @@ public class EscalationRuleModel {
 			}
 			rs.close();
 			pstmt.close();
-		} catch (Exception e) {
+		} catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseDownException("Database Server Down!!!");
+		}catch (Exception e) {
 			throw new DatabaseException("Exception : Exception in getting PK");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
@@ -72,7 +78,10 @@ public class EscalationRuleModel {
 			pstmt.executeUpdate();
 			conn.commit();
 			pstmt.close();
-		} catch (Exception e) {
+		} catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseDownException("Database Server Down!!!");
+		}catch (Exception e) {
 			e.printStackTrace();
 			try {
 				conn.rollback();
@@ -122,7 +131,10 @@ public class EscalationRuleModel {
 			pstmt.executeUpdate();
 			conn.commit();
 			pstmt.close();
-		} catch (Exception e) {
+		} catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseDownException("Database Server Down!!!");
+		}catch (Exception e) {
 			try {
 				conn.rollback();
 			} catch (Exception ex) {
@@ -152,7 +164,10 @@ public class EscalationRuleModel {
 			conn.commit();
 			pstmt.close();
 
-		} catch (Exception e) {
+		} catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseDownException("Database Server Down!!!");
+		}catch (Exception e) {
 			try {
 				conn.rollback();
 			} catch (Exception ex) {
@@ -195,7 +210,10 @@ public class EscalationRuleModel {
 			}
 			rs.close();
 			pstmt.close();
-		} catch (Exception e) {
+		} catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseDownException("Database Server Down!!!");
+		}catch (Exception e) {
 			throw new ApplicationException("Exception : Exception in getting by pk");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
@@ -236,7 +254,10 @@ public class EscalationRuleModel {
 			}
 			rs.close();
 			pstmt.close();
-		} catch (Exception e) {
+		} catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseDownException("Database Server Down!!!");
+		}catch (Exception e) {
 			e.printStackTrace();
 			throw new ApplicationException("Exception : Exception in getting by Name");
 		} finally {
@@ -312,6 +333,9 @@ public class EscalationRuleModel {
 			}
 			rs.close();
 			pstmt.close();
+		}catch (CJCommunicationsException e) {
+        	e.printStackTrace();
+        	throw new DatabaseDownException("Database Server Down!!!");
 		} catch (Exception e) {
 			throw new ApplicationException("Exception : Exception in search");
 		} finally {

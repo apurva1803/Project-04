@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.UserBean;
@@ -137,7 +139,7 @@ public class UserRegistrationCtl extends BaseCtl {
 		if (OP_SIGN_UP.equalsIgnoreCase(op)) {
 			UserBean bean = (UserBean) populateBean(request);
 			try {
-				long pk = model.registerUser(bean);
+				model.registerUser(bean);
 				ServletUtility.setBean(bean, request);
 				ServletUtility.setSuccessMessage("Registration successful!", request);
 			} catch (DuplicateRecordException e) {
@@ -145,8 +147,9 @@ public class UserRegistrationCtl extends BaseCtl {
 				ServletUtility.setErrorMessage("Login id already exists", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
-				ServletUtility.handleException(e, request, response, getView());
-				return;
+				// ServletUtility.handleException(e, request, response);
+				ServletUtility.setErrorMessage("Database Server Down...!! Please try Again", request);
+				ServletUtility.forward(getView(), request, response);
 			}
 			ServletUtility.forward(getView(), request, response);
 		} else if (OP_RESET.equalsIgnoreCase(op)) {

@@ -105,7 +105,7 @@ public interface ORSView {
 	public String JOBQUEUE_LIST_CTL = APP_CONTEXT + "/ctl/JobQueueListCtl";
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
-	public String ERROR_CTL = APP_CONTEXT + "/ctl/ErrorCtl";
+	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 
 
 }

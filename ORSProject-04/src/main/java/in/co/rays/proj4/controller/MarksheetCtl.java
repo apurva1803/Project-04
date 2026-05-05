@@ -23,13 +23,15 @@ import in.co.rays.proj4.util.ServletUtility;
 public class MarksheetCtl extends BaseCtl{
 
 	@Override
-	protected void preload(HttpServletRequest request) {
+	protected void preload(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		StudentModel studentModel = new StudentModel();
 		try {
 			List studentList = studentModel.list();
 			request.setAttribute("studentList", studentList);
 		} catch (ApplicationException e) {
 			e.printStackTrace();
+			ServletUtility.handleException(e, request, response, getView());
+			return;
 		}
 	}
 
