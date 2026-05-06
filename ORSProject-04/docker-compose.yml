@@ -27,6 +27,7 @@ services:
     environment:
       DATABASE_URL: jdbc:mysql://mysql:3306/project04
 
+networks:
   mynetwork:
     driver: bridge
 volumes:
