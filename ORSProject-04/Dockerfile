@@ -1,11 +1,9 @@
-FROM tomcat:9-jdk17
+FROM tomcat:9
 
-# Clean default apps
-RUN rm -rf /usr/local/tomcat/webapps/*
+RUN sed -i 's/port="8080"/port="8888"/g' /usr/local/tomcat/conf/server.xml
 
-# Deploy with project name (NOT ROOT)
+# Copy WAR file
 COPY target/ORSProject-04.war /usr/local/tomcat/webapps/ORSProject-04.war
 
-EXPOSE 8080
-
-CMD ["catalina.sh", "run"]
+# Expose new port
+EXPOSE 8888
