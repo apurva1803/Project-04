@@ -1,6 +1,8 @@
 package in.co.rays.proj4.test;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -8,130 +10,174 @@ import java.util.List;
 
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.exception.ApplicationException;
+import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.model.StudentModel;
 
 public class TestStudentModel {
-	
-	public static StudentModel model = new StudentModel();
-	
+	static StudentModel model = new StudentModel();
+
 	public static void main(String[] args) {
-		//testAdd();
-		//testUpdate();
-		//testDelete();
-		//testfindByPk();
-		testSearch();
+//		testNextPk();
+//		testAdd();
+//		testDelete();
+//		testUpdate();
+//		testFindByPk();
+//		testFindByEmail();
+//		testSearch();
+//		testList();
+//		testNextPk();
 	}
-	
-	public static void testSearch() {
+
+	public static void testList() {
 		try {
-			StudentBean bean = new StudentBean();
+			StudentBean bean = null;
 			List list = new ArrayList();
 			list = model.search(bean, 0, 0);
-			
 			if (list.size() < 0) {
 				System.out.println("Test Serach fail");
 			}
-			
 			Iterator it = list.iterator();
 			while (it.hasNext()) {
 				bean = (StudentBean) it.next();
-				System.out.println("Id: " + bean.getId());
-				System.out.println("Name: " + bean.getFirstName());
-				System.out.println("Description: " + bean.getLastName());
-				System.out.println("CreatedBy: " + bean.getCreatedBy());
-				System.out.println("ModifiedBy: " + bean.getModifiedBy());
+				System.out.println("Id : " + bean.getId());
+				System.out.println("Name : " + bean.getFirstName() + " " + bean.getLastName());
+				System.out.println("DOB : " + bean.getDob());
+				System.out.println("Mobile no. : " + bean.getMobileNo());
+				System.out.println("Email : " + bean.getEmail());
+				System.out.println("College ID : " + bean.getCollegeId());
+				System.out.println("College Name : " + bean.getCollegeName());
 			}
 		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public static void testfindByPk() {
-		try {
-			StudentBean bean = model.findByPk(2);
-			
-			if (bean == null) {
-				System.out.println("Test Find By PK fail");
-			}
-			
-			System.out.println("Id: " + bean.getId());
-			System.out.println("Name: " + bean.getFirstName());
-			System.out.println("Description: " + bean.getLastName());
-			System.out.println("CreatedBy: " + bean.getCreatedBy());
-			System.out.println("ModifiedBy: " + bean.getModifiedBy());
-			System.out.println("CreatedDatetime: " + bean.getCreatedDatetime());
-			System.out.println("ModifiedDatetime: " + bean.getModifiedDatetime());
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void testDelete() {
+
+	public static void testSearch() {
 		try {
 			StudentBean bean = new StudentBean();
-			long pk = 3;
-			bean.setId(pk);
-			model.delete(bean);
-			System.out.println("Record Deleted..");
-			
-			StudentBean deletedbean = model.findByPk(pk);
-			if (deletedbean != null) {
-				System.out.println("Test Delete fail");
+			bean.setFirstName("Chaitanya");
+			List list = new ArrayList();
+			list = model.search(bean, 0, 0);
+			if (list.size() < 0) {
+				System.out.println("Test Serach fail");
+			}
+			Iterator it = list.iterator();
+			while (it.hasNext()) {
+				bean = (StudentBean) it.next();
+				System.out.println("Id : " + bean.getId());
+				System.out.println("Name : " + bean.getFirstName() + " " + bean.getLastName());
+				System.out.println("DOB : " + bean.getDob());
+				System.out.println("Mobile no. : " + bean.getMobileNo());
+				System.out.println("Email : " + bean.getEmail());
+				System.out.println("College ID : " + bean.getCollegeId());
+				System.out.println("College Name : " + bean.getCollegeName());
 			}
 		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+
+	public static void testFindByEmail() {
+		try {
+			StudentBean bean = model.findByEmailId("mb@gmail.com");
+			System.out.println("Id : " + bean.getId());
+			System.out.println("Name : " + bean.getFirstName() + " " + bean.getLastName());
+			System.out.println("DOB : " + bean.getDob());
+			System.out.println("Mobile no. : " + bean.getMobileNo());
+			System.out.println("Email : " + bean.getEmail());
+			System.out.println("College ID : " + bean.getCollegeId());
+			System.out.println("College Name : " + bean.getCollegeName());
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void testFindByPk() {
+		try {
+			StudentBean bean = model.findByPk(1);
+			System.out.println("Id : " + bean.getId());
+			System.out.println("Name : " + bean.getFirstName() + " " + bean.getLastName());
+			System.out.println("DOB : " + bean.getDob());
+			System.out.println("Mobile no. : " + bean.getMobileNo());
+			System.out.println("Email : " + bean.getEmail());
+			System.out.println("College ID : " + bean.getCollegeId());
+			System.out.println("College Name : " + bean.getCollegeName());
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void testUpdate() {
-		try {
-			StudentBean bean = model.findByPk(2);
-			
-			bean.setFirstName("Shiva");
-			bean.setLastName("Deshmukh");
-			bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
-			
-			model.update(bean);
-
-			StudentBean updatedbean = model.findByPk(2);
-			
-			if (!"Admin".equals(updatedbean.getFirstName())) {
-				System.out.println("Test Update Success");
-			}
-		} catch (ApplicationException | DuplicateRecordException e) {
-			e.printStackTrace();
-		}
-		
-	}
-
-	public static void testAdd() {
-		
 		StudentBean bean = new StudentBean();
-		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			bean.setFirstName("Ameya");
-			bean.setLastName("Deshmukh");
-			bean.setDob(new Timestamp(new Date().getTime()));
-			bean.setGender("male");
-			bean.setMobileNo("8778776655");
-			bean.setEmail("Ameya@gmail.com");
+			bean.setId(2);
+			bean.setFirstName("Mihir");
+			bean.setLastName("Bhatt");
+			bean.setDob(sdf.parse("2002-08-11"));
+			bean.setGender("mail");
+			bean.setMobileNo("7220044837");
+			bean.setEmail("mb@gmail.com");
 			bean.setCollegeId(4);
 			bean.setCreatedBy("admin");
 			bean.setModifiedBy("admin");
 			bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 			bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
-			
-			long pk = model.add(bean);
-			StudentBean addedbean = model.findByPk(pk);
-			if (addedbean == null) {
-				System.out.println("Test add fail");
-			}
-		} catch (ApplicationException | DuplicateRecordException e) {
+			model.update(bean);
+			System.out.println("Student Updated Successfully");
+		} catch (ApplicationException | DuplicateRecordException | ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+
+	public static void testDelete() {
+		StudentBean bean = new StudentBean();
+		bean.setId(3);
+		try {
+			model.delete(bean);
+			System.out.println("Student Deleted Successfully");
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void testAdd() {
+		StudentBean bean = new StudentBean();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			bean.setFirstName("Ruby");
+			bean.setLastName("Rani");
+			bean.setDob(sdf.parse("2002-02-16"));
+			bean.setGender("femail");
+			bean.setMobileNo("8401644837");
+			bean.setEmail("rr@gmail.com");
+			bean.setCollegeId(1);
+			bean.setCreatedBy("admin");
+			bean.setModifiedBy("admin");
+			bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+			bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+			model.add(bean);
+			System.out.println("Student Added Successfully");
+		} catch (ApplicationException | DuplicateRecordException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void testNextPk() {
+		try {
+			System.out.println(model.nextPk());
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

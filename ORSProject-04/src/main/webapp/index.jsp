@@ -1,3 +1,4 @@
+
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@page import="in.co.rays.proj4.bean.UserBean"%>
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
@@ -19,7 +20,7 @@
 			ServletUtility.forward(ORSView.WELCOME_VIEW, request, response);
 		}
 	%>
-	
+
 		<div align="center">
 			<img src="img/customLogo.jpg" align="middle" width="318" height="127"
 				border="0">

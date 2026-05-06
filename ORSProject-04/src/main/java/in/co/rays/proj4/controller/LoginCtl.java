@@ -207,7 +207,7 @@ public class LoginCtl extends BaseCtl {
             }
 
         } else if (OP_SIGN_UP.equalsIgnoreCase(op)) {
-            log.info("Sign Up requested – redirecting to registration");
+            log.info("Sign Up requested � redirecting to registration");
             ServletUtility.redirect(ORSView.USER_REGISTRATION_CTL, request, response);
             return;
         }

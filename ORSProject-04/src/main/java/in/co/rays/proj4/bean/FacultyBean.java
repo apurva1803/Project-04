@@ -3,173 +3,272 @@ package in.co.rays.proj4.bean;
 import java.util.Date;
 
 /**
- * FacultyBean represents the details of a faculty member.
- * It stores personal information along with college, course,
- * and subject mapping. This bean is used across Model, Controller,
- * and View layers in ORSProject-04.
+ * FacultyBean represents faculty information within the system.
+ * It includes personal details such as name, DOB, gender, and contact details,
+ * as well as academic associations like college, course, and subject.
+ * This class extends {@link BaseBean} to inherit common audit attributes.
  *
- * Author Apurva Deshmukh
+ * author Apurva Deshmukh
+ * @version 1.0
  */
-public class FacultyBean extends BaseBean{
-	
-	/** Faculty first name */
+public class FacultyBean extends BaseBean {
+
+    /** First name of the faculty member. */
     private String firstName;
 
-    /** Faculty last name */
+    /** Last name of the faculty member. */
     private String lastName;
 
-    /** Date of Birth */
+    /** Date of birth of the faculty member. */
     private Date dob;
 
-    /** Gender (Male/Female/Other) */
+    /** Gender of the faculty member. */
     private String gender;
 
-    /** Mobile Number */
+    /** Mobile number of the faculty member. */
     private String mobileNo;
 
-    /** Email ID */
+    /** Email address of the faculty member. */
     private String email;
 
-    /** College ID (FK) */
+    /** ID of the associated college. */
     private long collegeId;
 
-    /** College Name */
+    /** Name of the associated college. */
     private String collegeName;
 
-    /** Course ID (FK) */
+    /** ID of the associated course. */
     private long courseId;
 
-    /** Course Name */
+    /** Name of the associated course. */
     private String courseName;
 
-    /** Subject ID (FK) */
+    /** ID of the associated subject. */
     private long subjectId;
 
-    /** Subject Name */
+    /** Name of the associated subject. */
     private String subjectName;
 
-    /** Returns first name */
+    /**
+     * Gets the first name of the faculty member.
+     *
+     * @return firstName
+     */
     public String getFirstName() {
         return firstName;
     }
 
-    /** Sets first name */
+    /**
+     * Sets the first name of the faculty member.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    /** Returns last name */
+    /**
+     * Gets the last name of the faculty member.
+     *
+     * @return lastName
+     */
     public String getLastName() {
         return lastName;
     }
 
-    /** Sets last name */
+    /**
+     * Sets the last name of the faculty member.
+     *
+     * @param lastName the last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    /** Returns Date of Birth */
+    /**
+     * Gets the date of birth of the faculty member.
+     *
+     * @return dob
+     */
     public Date getDob() {
         return dob;
     }
 
-    /** Sets Date of Birth */
+    /**
+     * Sets the date of birth of the faculty member.
+     *
+     * @param dob the date of birth
+     */
     public void setDob(Date dob) {
         this.dob = dob;
     }
 
-    /** Returns gender */
+    /**
+     * Gets the gender of the faculty member.
+     *
+     * @return gender
+     */
     public String getGender() {
         return gender;
     }
 
-    /** Sets gender */
+    /**
+     * Sets the gender of the faculty member.
+     *
+     * @param gender the gender
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
-    /** Returns mobile number */
+    /**
+     * Gets the mobile number of the faculty.
+     *
+     * @return mobileNo
+     */
     public String getMobileNo() {
         return mobileNo;
     }
 
-    /** Sets mobile number */
+    /**
+     * Sets the mobile number of the faculty.
+     *
+     * @param mobileNo the mobile number
+     */
     public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
     }
 
-    /** Returns email address */
+    /**
+     * Gets the email address of the faculty member.
+     *
+     * @return email
+     */
     public String getEmail() {
         return email;
     }
 
-    /** Sets email address */
+    /**
+     * Sets the email address of the faculty member.
+     *
+     * @param email the email address
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /** Returns college ID */
+    /**
+     * Gets the associated college ID.
+     *
+     * @return collegeId
+     */
     public long getCollegeId() {
         return collegeId;
     }
 
-    /** Sets college ID */
+    /**
+     * Sets the associated college ID.
+     *
+     * @param collegeId the college ID
+     */
     public void setCollegeId(long collegeId) {
         this.collegeId = collegeId;
     }
 
-    /** Returns college name */
+    /**
+     * Gets the associated college name.
+     *
+     * @return collegeName
+     */
     public String getCollegeName() {
         return collegeName;
     }
 
-    /** Sets college name */
+    /**
+     * Sets the associated college name.
+     *
+     * @param collegeName the college name
+     */
     public void setCollegeName(String collegeName) {
         this.collegeName = collegeName;
     }
 
-    /** Returns course ID */
+    /**
+     * Gets the associated course ID.
+     *
+     * @return courseId
+     */
     public long getCourseId() {
         return courseId;
     }
 
-    /** Sets course ID */
+    /**
+     * Sets the associated course ID.
+     *
+     * @param courseId the course ID
+     */
     public void setCourseId(long courseId) {
         this.courseId = courseId;
     }
 
-    /** Returns course name */
+    /**
+     * Gets the associated course name.
+     *
+     * @return courseName
+     */
     public String getCourseName() {
         return courseName;
     }
 
-    /** Sets course name */
+    /**
+     * Sets the associated course name.
+     *
+     * @param courseName the course name
+     */
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
 
-    /** Returns subject ID */
+    /**
+     * Gets the associated subject ID.
+     *
+     * @return subjectId
+     */
     public long getSubjectId() {
         return subjectId;
     }
 
-    /** Sets subject ID */
+    /**
+     * Sets the associated subject ID.
+     *
+     * @param subjectId the subject ID
+     */
     public void setSubjectId(long subjectId) {
         this.subjectId = subjectId;
     }
 
-    /** Returns subject name */
+    /**
+     * Gets the associated subject name.
+     *
+     * @return subjectName
+     */
     public String getSubjectName() {
         return subjectName;
     }
 
-    /** Sets subject name */
+    /**
+     * Sets the associated subject name.
+     *
+     * @param subjectName the subject name
+     */
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
 
     /**
-     * Returns key for dropdown lists (Primary Key)
+     * Returns the unique key (ID) as a string.
+     *
+     * @return the key
      */
     @Override
     public String getKey() {
@@ -177,11 +276,12 @@ public class FacultyBean extends BaseBean{
     }
 
     /**
-     * Returns value for dropdown lists (Full Name)
+     * Returns the display value of the faculty, typically the full name.
+     *
+     * @return firstName + " " + lastName
      */
     @Override
     public String getValue() {
         return firstName + " " + lastName;
     }
-
 }

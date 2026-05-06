@@ -3,21 +3,17 @@ package in.co.rays.proj4.bean;
 import java.util.Date;
 
 /**
- * UserBean is a JavaBean class that represents a User entity. It is used to
- * handle records of the ST_USER table.
- * 
- * This class contains user-related attributes such as name, login credentials,
- * personal details, and role information.
- * 
- * It extends BaseBean to inherit common properties like id, createdBy, etc.
- * 
+ * UserBean represents a user of the application. 
+ * It stores user profile information such as name, login credentials, 
+ * date of birth, mobile number, gender, and assigned role. 
+ * This class extends {@link BaseBean} to include standard audit fields.
  *
- * @author Apurva Deshmukh
- *
+ * author Apurva Deshmukh
+ * @version 1.0
  */
-public class UserBean extends BaseBean{
-	
-	 /** First name of the user. */
+public class UserBean extends BaseBean {
+
+    /** First name of the user. */
     private String firstName;
 
     /** Last name of the user. */
@@ -226,6 +222,4 @@ public class UserBean extends BaseBean{
     public String getValue() {
         return firstName + " " + lastName;
     }
-	
-	
 }

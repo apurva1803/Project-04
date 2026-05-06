@@ -8,11 +8,11 @@ import java.sql.Timestamp;
  * createdDatetime, and modifiedDatetime.
  *
  * @author Apurva Deshmukh
- *
+ * @version 1.0
  */
-public abstract class BaseBean implements DropdownListBean{
-	
-	/** Unique identifier of the bean. */
+public abstract class BaseBean implements DropdownListBean {
+
+    /** Unique identifier of the bean. */
     protected long id;
 
     /** User who created the record. */
@@ -27,7 +27,6 @@ public abstract class BaseBean implements DropdownListBean{
     /** Timestamp when the record was last modified. */
     protected Timestamp modifiedDatetime;
 
-	
     /**
      * Gets the unique identifier of the bean.
      *
@@ -117,5 +116,4 @@ public abstract class BaseBean implements DropdownListBean{
     public void setModifiedDatetime(Timestamp modifiedDatetime) {
         this.modifiedDatetime = modifiedDatetime;
     }
-
 }

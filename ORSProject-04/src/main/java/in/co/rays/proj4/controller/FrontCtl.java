@@ -27,9 +27,7 @@ public class FrontCtl implements Filter {
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-
-		request.setAttribute("uri", request.getRequestURI());
-		System.out.println("your current uri is: " + request.getRequestURI());
+		request.setAttribute("ORIGINAL_CTL", request.getRequestURI());
 		HttpSession session = request.getSession();
 
 		if (session.getAttribute("user") == null) {

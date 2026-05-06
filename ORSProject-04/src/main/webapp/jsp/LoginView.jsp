@@ -1,3 +1,4 @@
+ 
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
 <%@page import="in.co.rays.proj4.controller.LoginCtl"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
@@ -13,22 +14,20 @@
 	<form action="<%=ORSView.LOGIN_CTL%>" method="post">
 		<%@ include file="Header.jsp"%>
 
+	
 		<jsp:useBean id="bean" class="in.co.rays.proj4.bean.UserBean"
 			scope="request"></jsp:useBean>
 
-		<%
-		String URI = (String) request.getAttribute("uri");
-		%>
-
-		<input type="hidden" name="URI" value="<%=URI%>">
-
 		<div align="center">
+
 
 			<h1 align="center" style="margin-bottom: -15; color: navy">Login</h1>
 
 			<div style="height: 15px; margin-bottom: 12px">
 				<H3 align="center">
 					<font color="red"> <%=ServletUtility.getErrorMessage(request)%>
+					
+					
 					</font>
 				</H3>
 				<H3 align="center">
@@ -46,7 +45,7 @@
 			<input type="hidden" name="modifiedDatetime"
 				value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
 			<%
-			String uri = (String) request.getAttribute("uri");
+				String uri = (String) request.getAttribute("uri");
 			%>
 			<table>
 				<tr>
@@ -86,5 +85,6 @@
 			</table>
 		</div>
 	</form>
+	<%@ include file="Footer.jsp"%>
 </body>
 </html>

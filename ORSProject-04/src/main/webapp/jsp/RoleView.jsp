@@ -1,5 +1,7 @@
-<%@page import="in.co.rays.proj4.controller.RoleCtl"%>
+
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
+<%@page import="in.co.rays.proj4.controller.RoleCtl"%>
+<%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <html>
@@ -18,11 +20,11 @@
 		<div align="center">
 			<h1 align="center" style="margin-bottom: -15; color: navy">
 				<%
-				if (bean != null && bean.getId() > 0) {
+					if (bean != null && bean.getId() > 0) {
 				%>Update<%
-				} else {
+					} else {
 				%>Add<%
-				}
+					}
 				%>
 				Role
 			</h1>
@@ -38,11 +40,14 @@
 				</h3>
 			</div>
 
-			<input type="hidden" name="id" value="<%=bean.getId()%>"> 
-			<input type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
-			<input type="hidden" name="modifiedBy" value="<%=bean.getModifiedBy()%>"> 
-			<input type="hidden" name="createdDatetime" value="<%=DataUtility.getTimestamp(bean.getCreatedDatetime())%>">
-			<input type="hidden" name="modifiedDatetime" value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
+			<input type="hidden" name="id" value="<%=bean.getId()%>"> <input
+				type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
+			<input type="hidden" name="modifiedBy"
+				value="<%=bean.getModifiedBy()%>"> <input type="hidden"
+				name="createdDatetime"
+				value="<%=DataUtility.getTimestamp(bean.getCreatedDatetime())%>">
+			<input type="hidden" name="modifiedDatetime"
+				value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
 
 			<table>
 				<tr>
@@ -69,25 +74,26 @@
 				<tr>
 					<th></th>
 					<%
-					if (bean != null && bean.getId() > 0) {
+						if (bean != null && bean.getId() > 0) {
 					%>
 					<td align="left" colspan="2"><input type="submit"
 						name="operation" value="<%=RoleCtl.OP_UPDATE%>"> <input
 						type="submit" name="operation" value="<%=RoleCtl.OP_CANCEL%>">
 					</td>
 					<%
-					} else {
+						} else {
 					%>
 					<td align="left" colspan="2"><input type="submit"
 						name="operation" value="<%=RoleCtl.OP_SAVE%>"> <input
 						type="submit" name="operation" value="<%=RoleCtl.OP_RESET%>">
 					</td>
 					<%
-					}
+						}
 					%>
 				</tr>
 			</table>
 		</div>
 	</form>
+	<%@ include file="Footer.jsp"%>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 $(function() {
 	$("#selectall").click(function() {
 		$('.case').prop('checked', this.checked);

@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        JAVA_HOME = "/opt/homebrew/Cellar/openjdk@17/17.0.18/libexec/openjdk.jdk/Contents/Home"
+        JAVA_HOME = "/opt/homebrew/Cellar/openjdk@17/17.0.19/libexec/openjdk.jdk/Contents/Home"
         MAVEN_HOME = "/opt/homebrew/opt/maven"
 
         TOMCAT_HOME = "/opt/homebrew/opt/tomcat@9/libexec"
@@ -19,21 +19,20 @@ pipeline {
             }
         }
 
-        // ✅ OPTIONAL: Start only if not running
-        stage('Ensure Tomcat Running') {
+        stage('Start Tomcat (Detached Mode)') {
             steps {
                 sh '''
-                echo "Checking if Tomcat is running on port 1999..."
+                echo "Stopping Tomcat service (if running)..."
+                brew services stop tomcat@9 || true
 
-                if lsof -i :1999 > /dev/null
-                then
-                    echo "Tomcat already running"
-                else
-                    echo "Starting Tomcat..."
-                    brew services start tomcat@9
-                    echo "Waiting for Tomcat startup..."
-                    sleep 20
-                fi
+                echo "Starting Tomcat in detached mode..."
+                brew services start tomcat@9
+
+                echo "Waiting for Tomcat to start..."
+                sleep 10
+
+                echo "Verifying Tomcat port..."
+                lsof -i :8888 || true
                 '''
             }
         }
@@ -57,39 +56,37 @@ pipeline {
                     def warFile = "ORSProject-04/target/ORSProject-04.war"
                     def destination = "${TOMCAT_WEBAPPS_PATH}/ORSProject-04.war"
 
-                    echo "Removing old deployment..."
-                    sh "rm -rf ${TOMCAT_WEBAPPS_PATH}/ORSProject-04"
-                    sh "rm -f ${destination}"
+                    echo "Cleaning old deployment..."
+                    sh "rm -rf ${TOMCAT_WEBAPPS_PATH}/ORSProject-04 || true"
+                    sh "rm -f ${destination} || true"
 
-                    echo "Deploying new WAR..."
+                    echo "Copying new WAR..."
                     sh "cp ${warFile} ${destination}"
-
-                    echo "Waiting for WAR extraction..."
-                    sleep 15
                 }
             }
         }
 
-        // ✅ FIXED: Stateless health check (NO SESSION)
-        stage('Verify Deployment (Robust)') {
+        stage('Verify Deployment (Wait & Retry)') {
             steps {
                 sh '''
-                echo "Checking application health..."
+                echo "Waiting for application to deploy..."
 
-                for i in {1..15}
+                i=1
+                while [ $i -le 12 ]
                 do
-                  STATUS=$(curl -I -s -o /dev/null -w "%{http_code}" http://localhost:1999/ORSProject-04/)
+                  STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8888/ORSProject-04/)
 
                   if [ "$STATUS" = "200" ] || [ "$STATUS" = "302" ]; then
-                    echo "✅ Application is UP (HTTP $STATUS)"
+                    echo "Application is UP (HTTP $STATUS)"
                     exit 0
                   fi
 
-                  echo "Retry $i - Status: $STATUS"
+                  echo "Retry $i - App not ready yet (Status: $STATUS)"
                   sleep 5
+                  i=$((i+1))
                 done
 
-                echo "❌ Application failed to start"
+                echo "Application failed to start"
                 exit 1
                 '''
             }

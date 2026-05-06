@@ -1,3 +1,4 @@
+
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="in.co.rays.proj4.util.DataUtility"%>
@@ -93,7 +94,7 @@
 						String date = sdf.format(bean.getDob());
 					%>
 					<td style="text-align: center;"><%=date%></td>
-					<td style="text-align: center;"><a href="FacultyCtl?id=<%=bean.getId()%>">Edit</a></td>
+					<td style="text-align: center;"><a href="<%=ORSView.FACULTY_CTL%>?id=<%=bean.getId()%>">Edit</a></td>
 				</tr>
 				<%
 					}

@@ -1,12 +1,27 @@
 package in.co.rays.proj4.controller;
 
+/**
+ * ORSView defines application-wide constants for JSP view paths and their
+ * corresponding controller URL mappings. These constants are used throughout
+ * the project to avoid hard-coded strings in controllers and JSPs.
+ *
+ * <p>
+ * - {@code APP_CONTEXT} is the application context root. <br>
+ * - {@code PAGE_FOLDER} is the base folder where JSP pages are located. <br>
+ * - Other constants map logical view names (JSP paths) and controller URL
+ * patterns used by servlets.
+ * </p>
+ *
+ * @author Apurva Deshmukh
+ * @version 1.0
+ */
 public interface ORSView {
 
+	/** Application context root. */
 	public String APP_CONTEXT = "/ORSProject-04";
 
+	/** Base JSP folder. */
 	public String PAGE_FOLDER = "/jsp";
-	
-	public String JAVA_DOC = APP_CONTEXT + "/doc/index.html";
 
 	public String WELCOME_VIEW = PAGE_FOLDER + "/Welcome.jsp";
 	public String WELCOME_CTL = APP_CONTEXT + "/WelcomeCtl";
@@ -85,27 +100,107 @@ public interface ORSView {
 
 	public String FACULTY_LIST_VIEW = PAGE_FOLDER + "/FacultyListView.jsp";
 	public String FACULTY_LIST_CTL = APP_CONTEXT + "/ctl/FacultyListCtl";
-	
-	public String ESCALATIONRULE_VIEW = PAGE_FOLDER + "/EscalationRuleView.jsp";
-	public String ESCALATIONRULE_CTL = APP_CONTEXT + "/ctl/EscalationRuleCtl";
-
-	public String ESCALATIONRULE_LIST_VIEW = PAGE_FOLDER + "/EscalationRuleListView.jsp";
-	public String ESCALATIONRULE_LIST_CTL = APP_CONTEXT + "/ctl/EscalationRuleListCtl";
-	
-	public String REPAIR_VIEW = PAGE_FOLDER + "/RepairView.jsp";
-	public String REPAIR_CTL = APP_CONTEXT + "/ctl/RepairCtl";
-
-	public String REPAIR_LIST_VIEW = PAGE_FOLDER + "/RepairListView.jsp";
-	public String REPAIR_LIST_CTL = APP_CONTEXT + "/ctl/RepairListCtl";
-	
-	public String JOBQUEUE_VIEW = PAGE_FOLDER + "/JobQueueView.jsp";
-	public String JOBQUEUE_CTL = APP_CONTEXT + "/ctl/JobQueueCtl";
-
-	public String JOBQUEUE_LIST_VIEW = PAGE_FOLDER + "/JobQueueListView.jsp";
-	public String JOBQUEUE_LIST_CTL = APP_CONTEXT + "/ctl/JobQueueListCtl";
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 
+	public String JAVA_DOC = "/ORSProject-04/doc/index.html";
 
+
+
+	public String GYMWORKOUT_VIEW = PAGE_FOLDER + "/GymworkoutView.jsp";
+	public String GYMWORKOUT_CTL = APP_CONTEXT + "/ctl/GymworkoutCtl";
+
+	public String GYMWORKOUT_LIST_VIEW = PAGE_FOLDER + "/GymworkoutListView.jsp";
+	public String GYMWORKOUT_LIST_CTL = APP_CONTEXT + "/ctl/GymworkoutListCtl";
+
+	public String BROADCAST_VIEW = PAGE_FOLDER + "/BroadcastView.jsp";
+	public String BROADCAST_CTL = APP_CONTEXT + "/ctl/BroadcastCtl";
+
+	public String BROADCAST_LIST_VIEW = PAGE_FOLDER + "/BroadcastListView.jsp";
+	public String BROADCAST_LIST_CTL = APP_CONTEXT + "/ctl/BroadcastListCtl";
+
+	public String ART_VIEW = PAGE_FOLDER + "/ArtView.jsp";
+	public String ART_CTL = APP_CONTEXT + "/ctl/ArtCtl";
+
+	public String ART_LIST_VIEW = PAGE_FOLDER + "/ArtListView.jsp";
+	public String ART_LIST_CTL = APP_CONTEXT + "/ctl/ArtListCtl";
+
+	public String NOTIFICATION_VIEW = PAGE_FOLDER + "/NotificationView.jsp";
+	public String NOTIFICATION_CTL = APP_CONTEXT + "/ctl/NotificationCtl";
+
+	public String NOTIFICATION__LIST_VIEW = PAGE_FOLDER + "/NotificationListView.jsp";
+	public String NOTIFICATION__LIST_CTL = APP_CONTEXT + "/ctl/NotificationListCtl";
+
+
+
+
+
+	public String PAYMENT_VIEW = PAGE_FOLDER + "/PaymentView.jsp";
+	public String PAYMENT_CTL = APP_CONTEXT + "/ctl/PaymentCtl";
+
+	public String PAYMENT_LIST_VIEW = PAGE_FOLDER + "/PaymentListView.jsp";
+	public String PAYMENT_LIST_CTL = APP_CONTEXT + "/ctl/PaymentListCtl";
+
+	public String ANNOUNCE_VIEW = PAGE_FOLDER + "/AnnounceView.jsp";
+	public String ANNOUNCE_CTL = APP_CONTEXT + "/ctl/AnnounceCtl";
+
+	public String ANNOUNCE_LIST_VIEW = PAGE_FOLDER + "/AnnounceListView.jsp";
+	public String ANNOUNCE_LIST_CTL = APP_CONTEXT + "/ctl/AnnounceListCtl";
+
+	
+
+	public String EMI_VIEW = PAGE_FOLDER + "/EmiView.jsp";
+	public String EMI_CTL = APP_CONTEXT + "/ctl/EmiCtl";
+
+	public String EMI_LIST_VIEW = PAGE_FOLDER + "/EmiListView.jsp";
+	public String EMI_LIST_CTL = APP_CONTEXT + "/ctl/EmiListCtl";
+
+	public String TRACKING_VIEW = PAGE_FOLDER + "/TrackingView.jsp";
+	public String TRACKING_CTL = APP_CONTEXT + "/ctl/TrackingCtl";
+
+	public String TRACKING_LIST_VIEW = PAGE_FOLDER + "/TrackingListView.jsp";
+	public String TRACKING_LIST_CTL = APP_CONTEXT + "/ctl/TrackingListCtl";
+	
+
+	public String INTERNET_VIEW = PAGE_FOLDER + "/InternetView.jsp";
+	public String  INTERNET_CTL = APP_CONTEXT + "/ctl/InternetCtl";
+
+	public String  INTERNET_LIST_VIEW = PAGE_FOLDER + "/InternetListView.jsp";
+	public String  INTERNET_LIST_CTL = APP_CONTEXT + "/ctl/InternetListCtl";
+
+	
+
+	public String LAB_VIEW = PAGE_FOLDER + "/LabView.jsp";
+	public String  LAB_CTL = APP_CONTEXT + "/ctl/LabCtl";
+
+	public String  LAB_LIST_VIEW = PAGE_FOLDER + "/LabListView.jsp";
+	public String  LAB_LIST_CTL = APP_CONTEXT + "/ctl/LabListCtl";
+	
+
+
+	public String PRESCRIPTION_VIEW = PAGE_FOLDER + "/PrescriptionView.jsp";
+	public String  PRESCRIPTION_CTL = APP_CONTEXT + "/ctl/PrescriptionCtl";
+
+	public String  PRESCRIPTION_LIST_VIEW = PAGE_FOLDER + "/PrescriptionListView.jsp";
+	public String  PRESCRIPTION_LIST_CTL = APP_CONTEXT + "/ctl/PrescriptionListCtl";
+	
+
+	public String BUDGET_VIEW = PAGE_FOLDER + "/BudgetView.jsp";
+	public String  BUDGET_CTL = APP_CONTEXT + "/ctl/BudgetCtl";
+
+	public String  BUDGET_LIST_VIEW = PAGE_FOLDER + "/BudgetListView.jsp";
+	public String  BUDGET_LIST_CTL = APP_CONTEXT + "/ctl/BudgetListCtl";
+
+	public String PATIENT_VIEW = PAGE_FOLDER + "/PatientView.jsp";
+	public String  PATIENT_CTL = APP_CONTEXT + "/ctl/PatientCtl";
+
+	public String  PATIENT_LIST_VIEW = PAGE_FOLDER + "/PatientListView.jsp";
+	public String  PATIENT_LIST_CTL = APP_CONTEXT + "/ctl/PatientListCtl";
+	
+	public String TRANSPORT_VIEW = PAGE_FOLDER + "/TransportView.jsp";
+	public String  TRANSPORT_CTL = APP_CONTEXT + "/ctl/TransportCtl";
+
+	public String  TRANSPORT_LIST_VIEW = PAGE_FOLDER + "/TransportListView.jsp";
+	public String  TRANSPORT_LIST_CTL = APP_CONTEXT + "/ctl/TransportListCtl";
 }

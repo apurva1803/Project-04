@@ -29,7 +29,7 @@ import in.co.rays.proj4.util.JDBCDataSource;
  *
  * Note: SQL uses simple string-building for filters (consistent with the
  * rest of the project). Care should be taken if inputs can contain special
- * characters — ideally use parameterized queries for filters.
+ * characters � ideally use parameterized queries for filters.
  *
  * @author Apurva Deshmukh
  * @version 1.0

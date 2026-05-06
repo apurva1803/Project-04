@@ -1,61 +1,76 @@
 package in.co.rays.proj4.bean;
 
 /**
- * RoleBean represents different user roles in the system.
- * It stores role information like name and description.
- * Common system roles include Admin, Student, Faculty and Kiosk.
+ * RoleBean represents different user roles within the application such as
+ * Admin, Student, Faculty, and Kiosk. Each role determines the set of
+ * permissions and actions available to the user. This class extends 
+ * {@link BaseBean} to include common audit fields.
  *
- * Author Apurva Deshmukh
+ * author Apurva Deshmukh
+ * @version 1.0
  */
-public class RoleBean extends BaseBean{
-	
-	/** System Role: Administrator */
-	public static final int ADMIN = 1;
+public class RoleBean extends BaseBean {
 
-    /** System Role: Student */
+    /** Constant representing Admin role. */
+    public static final int ADMIN = 1;
+
+    /** Constant representing Student role. */
     public static final int STUDENT = 2;
 
-    /** System Role: college */
-    public static final int COLLEGE = 3;
+    /** Constant representing Faculty role. */
+    public static final int COLLEGE =3;
 
-    /** System Role: Kiosk User */
+    /** Constant representing Kiosk role. */
     public static final int KIOSK = 4;
-
     
-    /** System Role: faculty User */
-	
-	
-	public static final int FACULTY = 5;
-	
-	
-    /** Name of the Role */
+    public static final int FACULTY = 5;
+
+    /** Name of the role (e.g., "Admin", "Student"). */
     private String name;
 
-    /** Description of the Role */
+    /** Description of the role and its purpose. */
     private String description;
 
-    /** Returns role name */
+    /**
+     * Gets the name of the role.
+     *
+     * @return role name
+     */
     public String getName() {
         return name;
     }
 
-    /** Sets role name */
+    /**
+     * Sets the name of the role.
+     *
+     * @param name the role name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /** Returns description of role */
+    /**
+     * Gets the description of the role.
+     *
+     * @return role description
+     */
     public String getDescription() {
         return description;
     }
 
-    /** Sets description of role */
+    /**
+     * Sets the description of the role.
+     *
+     * @param description the role description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * Returns primary key as dropdown key
+     * Returns the unique key (ID) as a string.
+     *
+     * @return key representing the role ID
      */
     @Override
     public String getKey() {
@@ -63,11 +78,12 @@ public class RoleBean extends BaseBean{
     }
 
     /**
-     * Returns role name as dropdown value
+     * Returns the display value of the role, typically its name.
+     *
+     * @return role name
      */
     @Override
     public String getValue() {
         return name;
     }
-	
 }

@@ -14,24 +14,14 @@ public class TestEmailUtility {
 		try {
 
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("login", "sakshideshmukh653@gmail.com");
+			map.put("login", "deepakverma726800@gmail.com");
 			map.put("password", "pass123");
-			
-			HashMap<String, String> map1 = new HashMap<String, String>();
-			map.put("firstName", "Sakshi");
-			map.put("lastName", "Deshmukh");
 
-			//String message = EmailBuilder.getUserRegistrationMessage(map);
-			String message = EmailBuilder.getForgetPasswordMessage(map);
-			//String message = EmailBuilder.getChangePasswordMessage(map);
-			
+			String message = EmailBuilder.getUserRegistrationMessage(map);
+
 			EmailMessage emailMessage = new EmailMessage();
-			emailMessage.setTo("sakshideshmukh653@gmail.com");
-			
-			//emailMessage.setSubject("Registration is successful for ORS Project");
-			emailMessage.setSubject("Password Recovery for ORS Project");
-			//emailMessage.setSubject("Password Changed Successfully for ORS Project");
-			
+			emailMessage.setTo("deepakverma726800@gmail.com");
+			emailMessage.setSubject("Registration is successful for ORS Project");
 			emailMessage.setMessage(message);
 			emailMessage.setMessageType(EmailMessage.HTML_MSG);
 

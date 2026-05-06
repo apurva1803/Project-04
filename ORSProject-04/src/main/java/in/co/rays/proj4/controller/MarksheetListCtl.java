@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.MarksheetBean;
 import in.co.rays.proj4.exception.ApplicationException;
@@ -16,133 +18,209 @@ import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;
 import in.co.rays.proj4.util.ServletUtility;
 
+/**
+ * MarksheetListCtl handles listing, searching, pagination and bulk actions for
+ * Marksheet entities. It populates {@link MarksheetBean} from request parameters,
+ * delegates search/delete operations to {@link MarksheetModel}, and prepares
+ * data and pagination metadata for the view.
+ * <p>
+ * Supported operations include Search, Next, Previous, New, Delete, Reset and Back.
+ * </p>
+ *
+ * @author Apurva Deshmukh
+ * @version 1.0
+ * @see in.co.rays.proj4.model.MarksheetModel
+ * @see in.co.rays.proj4.bean.MarksheetBean
+ */
 @WebServlet(name = "MarksheetListCtl", urlPatterns = { "/ctl/MarksheetListCtl" })
-public class MarksheetListCtl extends BaseCtl{
+public class MarksheetListCtl extends BaseCtl {
 
-	@Override
-	protected BaseBean populateBean(HttpServletRequest request) {
+    private static final Logger log = Logger.getLogger(MarksheetListCtl.class);
 
-		MarksheetBean bean = new MarksheetBean();
+    /**
+     * Populates a {@link MarksheetBean} from request parameters for use in search
+     * or other operations.
+     *
+     * @param request the {@link HttpServletRequest} containing parameters
+     * @return populated {@link BaseBean} (actually a {@link MarksheetBean})
+     */
+    @Override
+    protected BaseBean populateBean(HttpServletRequest request) {
 
-		bean.setRollNo(DataUtility.getString(request.getParameter("rollNo")));
-		bean.setName(DataUtility.getString(request.getParameter("name")));
+        log.debug("MarksheetListCtl populateBean() called");
 
-		return bean;
-	}
+        MarksheetBean bean = new MarksheetBean();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+        bean.setRollNo(DataUtility.getString(request.getParameter("rollNo")));
+        bean.setName(DataUtility.getString(request.getParameter("name")));
 
-		int pageNo = 1;
-		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
+        return bean;
+    }
 
-		MarksheetBean bean = (MarksheetBean) populateBean(request);
-		MarksheetModel model = new MarksheetModel();
+    /**
+     * Handles HTTP GET requests. Performs an initial search and forwards the
+     * result list to the view. If no records are found, an error message is set.
+     *
+     * @param request  the {@link HttpServletRequest}
+     * @param response the {@link HttpServletResponse}
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		try {
-			List<MarksheetBean> list = model.search(bean, pageNo, pageSize);
-			List<MarksheetBean> next = model.search(bean, pageNo + 1, pageSize);
+        log.info("MarksheetListCtl doGet() started");
 
-			if (list == null || list.isEmpty()) {
-				ServletUtility.setErrorMessage("No record found", request);
-			}
+        int pageNo = 1;
+        int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
 
-			ServletUtility.setList(list, request);
-			ServletUtility.setPageNo(pageNo, request);
-			ServletUtility.setPageSize(pageSize, request);
-			ServletUtility.setBean(bean, request);
-			request.setAttribute("nextListSize", next.size());
+        MarksheetBean bean = (MarksheetBean) populateBean(request);
+        MarksheetModel model = new MarksheetModel();
 
-			ServletUtility.forward(getView(), request, response);
+        try {
+            List<MarksheetBean> list = model.search(bean, pageNo, pageSize);
+            List<MarksheetBean> next = model.search(bean, pageNo + 1, pageSize);
 
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-			ServletUtility.handleException(e, request, response, getView());
-			return;
-		}
-	}
+            if (list == null || list.isEmpty()) {
+                log.warn("No marksheet records found");
+                ServletUtility.setErrorMessage("No record found", request);
+            }
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+            ServletUtility.setList(list, request);
+            ServletUtility.setPageNo(pageNo, request);
+            ServletUtility.setPageSize(pageSize, request);
+            ServletUtility.setBean(bean, request);
+            request.setAttribute("nextListSize", next.size());
 
-		List list = null;
-		List next = null;
+            ServletUtility.forward(getView(), request, response);
 
-		int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
-		int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
+        } catch (ApplicationException e) {
+            log.error("Exception in MarksheetListCtl doGet()", e);
+            e.printStackTrace();
+            ServletUtility.handleException(e, request, response, getView());
+            return;
+        }
+    }
 
-		pageNo = (pageNo == 0) ? 1 : pageNo;
-		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
+    /**
+     * Handles HTTP POST requests for search, pagination, new, delete, reset and back
+     * operations. After performing the requested operation it forwards the updated
+     * list and pagination metadata to the view.
+     *
+     * @param request  the {@link HttpServletRequest}
+     * @param response the {@link HttpServletResponse}
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		MarksheetBean bean = (MarksheetBean) populateBean(request);
-		MarksheetModel model = new MarksheetModel();
+        log.info("MarksheetListCtl doPost() started");
 
-		String op = DataUtility.getString(request.getParameter("operation"));
-		String[] ids = request.getParameterValues("ids");
+        List list = null;
+        List next = null;
 
-		try {
+        int pageNo = DataUtility.getInt(request.getParameter("pageNo"));
+        int pageSize = DataUtility.getInt(request.getParameter("pageSize"));
 
-			if (OP_SEARCH.equalsIgnoreCase(op) || "Next".equalsIgnoreCase(op) || "Previous".equalsIgnoreCase(op)) {
+        pageNo = (pageNo == 0) ? 1 : pageNo;
+        pageSize = (pageSize == 0)
+                ? DataUtility.getInt(PropertyReader.getValue("page.size"))
+                : pageSize;
 
-				if (OP_SEARCH.equalsIgnoreCase(op)) {
-					pageNo = 1;
-				} else if (OP_NEXT.equalsIgnoreCase(op)) {
-					pageNo++;
-				} else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
-					pageNo--;
-				}
+        MarksheetBean bean = (MarksheetBean) populateBean(request);
+        MarksheetModel model = new MarksheetModel();
 
-			} else if (OP_NEW.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.MARKSHEET_CTL, request, response);
-				return;
+        String op = DataUtility.getString(request.getParameter("operation"));
+        String[] ids = request.getParameterValues("ids");
 
-			} else if (OP_DELETE.equalsIgnoreCase(op)) {
-				pageNo = 1;
-				if (ids != null && ids.length > 0) {
-					MarksheetBean deletebean = new MarksheetBean();
-					for (String id : ids) {
-						deletebean.setId(DataUtility.getInt(id));
-						model.delete(deletebean);
-						ServletUtility.setSuccessMessage("Marksheet is deleted successfully", request);
-					}
-				} else {
-					ServletUtility.setErrorMessage("Select at least one record", request);
-				}
+        try {
 
-			} else if (OP_RESET.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.MARKSHEET_LIST_CTL, request, response);
-				return;
+            if (OP_SEARCH.equalsIgnoreCase(op)
+                    || "Next".equalsIgnoreCase(op)
+                    || "Previous".equalsIgnoreCase(op)) {
 
-			} else if (OP_BACK.equalsIgnoreCase(op)) {
-				ServletUtility.redirect(ORSView.MARKSHEET_LIST_CTL, request, response);
-				return;
-			}
+                log.debug("Pagination/Search operation: " + op);
 
-			list = model.search(bean, pageNo, pageSize);
-			next = model.search(bean, pageNo + 1, pageSize);
+                if (OP_SEARCH.equalsIgnoreCase(op)) {
+                    pageNo = 1;
+                } else if (OP_NEXT.equalsIgnoreCase(op)) {
+                    pageNo++;
+                } else if (OP_PREVIOUS.equalsIgnoreCase(op) && pageNo > 1) {
+                    pageNo--;
+                }
 
-			if (list == null || list.size() == 0) {
-				ServletUtility.setErrorMessage("No record found ", request);
-			}
+            } else if (OP_NEW.equalsIgnoreCase(op)) {
 
-			ServletUtility.setList(list, request);
-			ServletUtility.setPageNo(pageNo, request);
-			ServletUtility.setPageSize(pageSize, request);
-			ServletUtility.setBean(bean, request);
-			request.setAttribute("nextListSize", next.size());
+                log.info("Redirecting to MarksheetCtl");
+                ServletUtility.redirect(ORSView.MARKSHEET_CTL, request, response);
+                return;
 
-			ServletUtility.forward(getView(), request, response);
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-			ServletUtility.handleException(e, request, response, getView());
-			return;
-		}
-	}
-	
-	@Override
-	protected String getView() {
-		return ORSView.MARKSHEET_LIST_VIEW;
-	}
+            } else if (OP_DELETE.equalsIgnoreCase(op)) {
 
+                log.info("Delete operation triggered");
+                pageNo = 1;
+
+                if (ids != null && ids.length > 0) {
+                    MarksheetBean deletebean = new MarksheetBean();
+                    for (String id : ids) {
+                        deletebean.setId(DataUtility.getInt(id));
+                        model.delete(deletebean);
+                        log.info("Deleted marksheet id: " + id);
+                        ServletUtility.setSuccessMessage(
+                                "Marksheet is deleted successfully", request);
+                    }
+                } else {
+                    log.warn("Delete requested without selecting records");
+                    ServletUtility.setErrorMessage("Select at least one record", request);
+                }
+
+            } else if (OP_RESET.equalsIgnoreCase(op)) {
+
+                log.info("Reset operation triggered");
+                ServletUtility.redirect(ORSView.MARKSHEET_LIST_CTL, request, response);
+                return;
+
+            } else if (OP_BACK.equalsIgnoreCase(op)) {
+
+                log.info("Back operation triggered");
+                ServletUtility.redirect(ORSView.MARKSHEET_LIST_CTL, request, response);
+                return;
+            }
+
+            list = model.search(bean, pageNo, pageSize);
+            next = model.search(bean, pageNo + 1, pageSize);
+
+            if (list == null || list.size() == 0) {
+                log.warn("No marksheet records found after operation");
+                ServletUtility.setErrorMessage("No record found ", request);
+            }
+
+            ServletUtility.setList(list, request);
+            ServletUtility.setPageNo(pageNo, request);
+            ServletUtility.setPageSize(pageSize, request);
+            ServletUtility.setBean(bean, request);
+            request.setAttribute("nextListSize", next.size());
+
+            ServletUtility.forward(getView(), request, response);
+
+        } catch (ApplicationException e) {
+            log.error("Exception in MarksheetListCtl doPost()", e);
+            e.printStackTrace();
+            ServletUtility.handleException(e, request, response, getView());
+            return;
+        }
+    }
+
+    /**
+     * Returns the JSP view path for the marksheet list.
+     *
+     * @return view page path as {@link String}
+     */
+    @Override
+    protected String getView() {
+        return ORSView.MARKSHEET_LIST_VIEW;
+    }
 }

@@ -304,7 +304,6 @@ public class RoleModel {
             log.info("RoleModel.search() found " + list.size() + " records");
         } catch (Exception e) {
             log.error("Exception in searching Role", e);
-            e.printStackTrace();
             throw new ApplicationException("Exception : Exception in search Role");
         } finally {
             JDBCDataSource.closeConnection(conn);
