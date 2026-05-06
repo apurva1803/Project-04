@@ -25,7 +25,7 @@ services:
     depends_on:
       - mysql
     environment:
-      DATABASE_URL: jdbc:mysql://mysql:3306/project04
+      DATABASE_URL: "jdbc:mysql://mysql:3306/project04"
 
 networks:
   mynetwork:
