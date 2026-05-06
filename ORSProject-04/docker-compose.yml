@@ -19,7 +19,7 @@ services:
       context: ./ORSProject-04
     container_name: ors-webapp
     ports:
-      - "8888:8888"   
+      - "8888:8080"   
     networks:
       - mynetwork
     depends_on:
