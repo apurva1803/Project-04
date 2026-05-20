@@ -4,10 +4,6 @@ pipeline {
     environment {
         JAVA_HOME = "/opt/homebrew/Cellar/openjdk@17/17.0.19/libexec/openjdk.jdk/Contents/Home"
         MAVEN_HOME = "/opt/homebrew/opt/maven"
-
-        TOMCAT_HOME = "/opt/homebrew/opt/tomcat@9/libexec"
-        TOMCAT_WEBAPPS_PATH = "${TOMCAT_HOME}/webapps"
-
         PATH = "/opt/homebrew/bin:/usr/local/bin:${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${PATH}"
     }
 
@@ -19,24 +15,6 @@ pipeline {
             }
         }
 
-        stage('Start Tomcat (Detached Mode)') {
-            steps {
-                sh '''
-                echo "Stopping Tomcat service (if running)..."
-                brew services stop tomcat@9 || true
-
-                echo "Starting Tomcat in detached mode..."
-                brew services start tomcat@9
-
-                echo "Waiting for Tomcat to start..."
-                sleep 10
-
-                echo "Verifying Tomcat port..."
-                lsof -i :8888 || true
-                '''
-            }
-        }
-
         stage('Clone Repository') {
             steps {
                 git url: 'https://github.com/apurva1803/Project-04.git',
@@ -44,50 +22,75 @@ pipeline {
             }
         }
 
-        stage('Build WAR File') {
-            steps {
-                sh "mvn clean package -DskipTests -f ORSProject-04/pom.xml"
-            }
-        }
-
-        stage('Deploy WAR to Tomcat') {
-            steps {
-                script {
-                    def warFile = "ORSProject-04/target/ORSProject-04.war"
-                    def destination = "${TOMCAT_WEBAPPS_PATH}/ORSProject-04.war"
-
-                    echo "Cleaning old deployment..."
-                    sh "rm -rf ${TOMCAT_WEBAPPS_PATH}/ORSProject-04 || true"
-                    sh "rm -f ${destination} || true"
-
-                    echo "Copying new WAR..."
-                    sh "cp ${warFile} ${destination}"
-                }
-            }
-        }
-
-        stage('Verify Deployment (Wait & Retry)') {
+        stage('Build WAR') {
             steps {
                 sh '''
-                echo "Waiting for application to deploy..."
+                cd ORSProject-04
+                mvn clean package -DskipTests
+                '''
+            }
+        }
 
-                i=1
-                while [ $i -le 12 ]
-                do
-                  STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8888/ORSProject-04/)
+        stage('Remove Old Containers') {
+            steps {
+                sh '''
+                echo "Stopping old containers..."
 
-                  if [ "$STATUS" = "200" ] || [ "$STATUS" = "302" ]; then
-                    echo "Application is UP (HTTP $STATUS)"
-                    exit 0
-                  fi
+                docker stop ors-container || true
+                docker rm ors-container || true
 
-                  echo "Retry $i - App not ready yet (Status: $STATUS)"
-                  sleep 5
-                  i=$((i+1))
-                done
+                docker stop ORSProject-04-webapp || true
+                docker rm ORSProject-04-webapp || true
 
-                echo "Application failed to start"
-                exit 1
+                docker stop ORSProject-04-mysql || true
+                docker rm ORSProject-04-mysql || true
+                '''
+            }
+        }
+
+        stage('Docker Compose Down') {
+            steps {
+                sh '''
+                cd ORSProject-04
+
+                docker compose down --remove-orphans || true
+                '''
+            }
+        }
+
+        stage('Docker Compose Build & Up') {
+            steps {
+                sh '''
+                cd ORSProject-04
+
+                docker compose up -d --build
+                '''
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh '''
+                echo "Waiting for application startup..."
+                sleep 40
+
+                echo "Checking running containers..."
+                docker ps
+
+                echo "Checking application URL..."
+
+                STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8888/ORSProject-04/)
+
+                if [ "$STATUS" = "200" ] || [ "$STATUS" = "302" ]; then
+                    echo "Application deployed successfully - HTTP $STATUS"
+                else
+                    echo "Deployment failed - HTTP $STATUS"
+
+                    echo "Showing container logs..."
+                    docker logs ORSProject-04-webapp
+
+                    exit 1
+                fi
                 '''
             }
         }
@@ -95,6 +98,11 @@ pipeline {
 
     post {
         always {
+            sh '''
+            echo "Running Containers:"
+            docker ps
+            '''
+
             deleteDir()
         }
     }
