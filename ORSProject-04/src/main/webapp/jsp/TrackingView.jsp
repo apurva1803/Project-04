@@ -62,14 +62,14 @@
                     <td><input type="text" name="location" placeholder="Enter location" value="<%=DataUtility.getStringData(bean.getLocation())%>"></td>
                     <td style="position: fixed;">
                         <font color="red">
-                            <%=ServletUtility.getErrorMessage("message", request)%> -                        </font>
+                            <%=ServletUtility.getErrorMessage("message", request)%>                       </font>
                     </td>
                 </tr>
  
             
                 <tr>
                     <th align="left">Status<span style="color: red">*</span></th>
-                    <td><input type="text" name="status" maxlength="10" placeholder="Enter " value="<%=DataUtility.getStringData(bean.getStatus())%>"></td>
+                    <td><input type="text" name="status" maxlength="10" placeholder="Enter Status" value="<%=DataUtility.getStringData(bean.getStatus())%>"></td>
                     <td style="position: fixed;">
                         <font color="red">
                             <%=ServletUtility.getErrorMessage("status", request)%>

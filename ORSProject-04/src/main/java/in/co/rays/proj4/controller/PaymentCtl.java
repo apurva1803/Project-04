@@ -36,10 +36,7 @@ public class PaymentCtl extends BaseCtl {
 			request.setAttribute("transactionId", PropertyReader.getValue("error.require", "transactionId"));
 			pass = false;
 
-		} else if (!DataValidator.isInteger(request.getParameter("transactionId"))) {
-			request.setAttribute("transactionId", "Invalid transactionId");
-			pass = false;
-		}
+		} 
 
 		if (DataValidator.isNull(request.getParameter("payerName"))) {
 			request.setAttribute("payerName", PropertyReader.getValue("error.require", "payerName"));

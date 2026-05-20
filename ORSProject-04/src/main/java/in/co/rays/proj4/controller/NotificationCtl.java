@@ -34,10 +34,7 @@ public class NotificationCtl extends BaseCtl {
 		if (DataValidator.isNull(request.getParameter("code"))) {
 			request.setAttribute("code", PropertyReader.getValue("error.require", "code"));
 			pass = false;
-		} else if (!DataValidator.isName(request.getParameter("code"))) {
-			request.setAttribute("code", "Invalid code");
-			pass = false;
-		}
+		} 
 
 		if (DataValidator.isNull(request.getParameter("type"))) {
 			request.setAttribute("type", PropertyReader.getValue("error.require", "type"));

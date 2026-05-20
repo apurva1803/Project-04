@@ -31,10 +31,7 @@ public class TrackingCtl extends BaseCtl {
 		if (DataValidator.isNull(request.getParameter("number"))) {
 			request.setAttribute("number", PropertyReader.getValue("error.require", "number"));
 			pass = false;
-		} else if (!DataValidator.isName(request.getParameter("number"))) {
-			request.setAttribute("number", "Invalid number");
-			pass = false;
-		}
+		} 
 
 		if (DataValidator.isNull(request.getParameter("location"))) {
 			request.setAttribute("location", PropertyReader.getValue("error.require", "location"));

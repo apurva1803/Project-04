@@ -127,7 +127,7 @@ public class TrackingModel {
 			
 			conn=JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt=conn.prepareStatement("update st_tracking set code=? , message=?, content=?,time=? , status=? ,created_by=?,modified_by=?,created_datetime=?,modified_datetime=? where id=?");
+			PreparedStatement pstmt=conn.prepareStatement("update st_tracking set code=? , message=?, content=?,time=? , status=? ,createdBy=?,modifiedBy=?,createdDatetime=?,modifiedDatetime=? where id=?");
 			pstmt.setString(1, bean.getNumber());
 			pstmt.setString(2, bean.getLocation());
 			pstmt.setString(3,bean.getStatus());

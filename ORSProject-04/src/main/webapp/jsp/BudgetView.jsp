@@ -61,7 +61,7 @@
                     <td><input type="text" name="spentAmount" placeholder="Enter spentAmount" value="<%= (bean.getSpentAmount() == 0) ? "" : bean.getSpentAmount()%>"></td>
                     <td style="position: fixed;">
                         <font color="red">
-                            <%=ServletUtility.getErrorMessage("spentAmount", request)%> -                        </font>
+                            <%=ServletUtility.getErrorMessage("spentAmount", request)%>                      </font>
                     </td>
                 </tr>
  

@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.bean.NotificationBean;
-import in.co.rays.proj4.bean.ArtBean;
 import in.co.rays.proj4.exception.ApplicationException;
-import in.co.rays.proj4.model.ArtModel;
 import in.co.rays.proj4.model.NotificationModel;
 import in.co.rays.proj4.util.DataUtility;
 import in.co.rays.proj4.util.PropertyReader;

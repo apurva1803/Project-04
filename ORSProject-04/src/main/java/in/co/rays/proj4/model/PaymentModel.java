@@ -126,9 +126,7 @@ public class PaymentModel {
 			conn.setAutoCommit(false);
 
 			PreparedStatement pstmt = conn
-					.prepareStatement("update st_payment set transaction_id=?, payer_name=?, amount=?, "
-							+ "payment_date=?, payment_status=?, created_by=?, modified_by=?, "
-							+ "created_datetime=?, modified_datetime=? where id=?");
+					.prepareStatement("update st_payment set transaction_id=?, payer_name=?, amount=?, payment_date=?, payment_status=?, createdBy=?, modifiedBy=?, createdDatetime=?, modifiedDatetime=? where id=?");
 
 			pstmt.setString(1, bean.getTransactionId());
 			pstmt.setString(2, bean.getPayerName());
@@ -202,7 +200,7 @@ public class PaymentModel {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select * from st_payment where transaction_id=?");
+			PreparedStatement pstmt = conn.prepareStatement("select * from st_payment where id=?");
 
 			pstmt.setString(1, transId);
 			ResultSet rs = pstmt.executeQuery();

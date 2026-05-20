@@ -126,7 +126,7 @@ public class BudgetModel {
 			
 			conn=JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt=conn.prepareStatement("update st_budget set amount=? , spent_amount=?, department=?,created_by=?,modified_by=?,created_datetime=?,modified_datetime=? where id=?");
+			PreparedStatement pstmt=conn.prepareStatement("update st_budget set amount=? , spentA₹mount=?, department=?,createdBy=?,modifiedBy=?,createdDatetime=?,modifiedDatetime=? where id=?");
 			pstmt.setInt(1, bean.getAmount());
 			pstmt.setInt(2, bean.getSpentAmount());
 			pstmt.setString(3,bean.getDepartment());
@@ -250,7 +250,7 @@ public class BudgetModel {
 				sql.append(" AND amount= " + bean.getAmount());
 			}
 			if (bean.getSpentAmount()> 0) {
-				sql.append(" AND spent_amount= " + bean.getSpentAmount());
+				sql.append(" AND spentAmount= " + bean.getSpentAmount());
 			}
 			if (bean.getDepartment() != null && bean.getDepartment().length() > 0) {
 				System.out.println(bean.getDepartment());

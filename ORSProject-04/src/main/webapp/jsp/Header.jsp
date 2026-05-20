@@ -80,41 +80,27 @@
 <!-- USE CASE -->
 	<a href="<%=ORSView.GYMWORKOUT_CTL%>"><b>Add Gymworkout</b></a> |
 	<a href="<%=ORSView.GYMWORKOUT_LIST_CTL%>"><b>Gymworkout List</b></a> |
-	
-		<a href="<%=ORSView.BROADCAST_CTL%>"><b>Add Broadcast</b></a> |
-	<a href="<%=ORSView.BROADCAST_LIST_CTL%>"><b>Broadcast List</b></a> |
-	
 
 	
-				<a href="<%=ORSView.ART_CTL%>"><b>Add Art</b></a> |
-	<a href="<%=ORSView.ART_LIST_CTL%>"><b>Art List</b></a> |
 	
-	
-				<a href="<%=ORSView.NOTIFICATION_CTL%>"><b>Add Notification</b></a> |
+	<a href="<%=ORSView.NOTIFICATION_CTL%>"><b>Add Notification</b></a> |
 	<a href="<%=ORSView.NOTIFICATION__LIST_CTL%>"><b>Notification List</b></a> |
 	
 		
-		<a href="<%=ORSView.PAYMENT_CTL%>"><b>Add Payment</b></a>
+	<a href="<%=ORSView.PAYMENT_CTL%>"><b>Add Payment</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.PAYMENT_LIST_CTL%>"><b> Payment List </b></a>
 	<b>|</b>
-<a href="<%=ORSView.INTERNET_CTL%>"><b>Add Internet</b></a>
-	<b>|</b>
-	<a href="<%=ORSView.INTERNET_LIST_CTL%>"><b> Internet List </b></a>
-	<b>|</b>
-<a href="<%=ORSView.LAB_CTL%>"><b>Add Lab</b></a>
+	<a href="<%=ORSView.LAB_CTL%>"><b>Add Lab</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.LAB_LIST_CTL%>"><b> Lab List </b></a>
 	<b>|</b>
 		
-	<a href="<%=ORSView.PRESCRIPTION_CTL%>"><b>Add Prescription</b></a>
-	<b>|</b>
-	<a href="<%=ORSView.PRESCRIPTION_LIST_CTL%>"><b> Prescription List </b></a>
-	<b>|</b>
+	
 		
 	
 	
-		<a href="<%=ORSView.EMI_CTL%>"><b>Add Emi</b></a>
+	<a href="<%=ORSView.EMI_CTL%>"><b>Add Emi</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.EMI_LIST_CTL%>"><b> Emi List </b></a>
 	<b>|</b>
@@ -159,37 +145,24 @@
 <!-- USE CASE -->
 	<a href="<%=ORSView.GYMWORKOUT_CTL%>"><b>Add Gymworkout</b></a> |
 	<a href="<%=ORSView.GYMWORKOUT_LIST_CTL%>"><b>Gymworkout List</b></a> |
-	
-		<a href="<%=ORSView.BROADCAST_CTL%>"><b>Add Broadcast</b></a> |
-	<a href="<%=ORSView.BROADCAST_LIST_CTL%>"><b>Broadcast List</b></a> |
-	
 
 	
-				<a href="<%=ORSView.ART_CTL%>"><b>Add Art</b></a> |
-	<a href="<%=ORSView.ART_LIST_CTL%>"><b>Art List</b></a> |
 	
-	
-				<a href="<%=ORSView.NOTIFICATION_CTL%>"><b>Add Notification</b></a> |
+	<a href="<%=ORSView.NOTIFICATION_CTL%>"><b>Add Notification</b></a> |
 	<a href="<%=ORSView.NOTIFICATION__LIST_CTL%>"><b>Notification List</b></a> |
 	
 		
-		<a href="<%=ORSView.PAYMENT_CTL%>"><b>Add Payment</b></a>
+	<a href="<%=ORSView.PAYMENT_CTL%>"><b>Add Payment</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.PAYMENT_LIST_CTL%>"><b> Payment List </b></a>
 	<b>|</b>
-<a href="<%=ORSView.INTERNET_CTL%>"><b>Add Internet</b></a>
-	<b>|</b>
-	<a href="<%=ORSView.INTERNET_LIST_CTL%>"><b> Internet List </b></a>
-	<b>|</b>
-<a href="<%=ORSView.LAB_CTL%>"><b>Add Lab</b></a>
+	
+	<a href="<%=ORSView.LAB_CTL%>"><b>Add Lab</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.LAB_LIST_CTL%>"><b> Lab List </b></a>
 	<b>|</b>
 		
-	<a href="<%=ORSView.PRESCRIPTION_CTL%>"><b>Add Prescription</b></a>
-	<b>|</b>
-	<a href="<%=ORSView.PRESCRIPTION_LIST_CTL%>"><b> Prescription List </b></a>
-	<b>|</b>
+	
 		
 		
 	

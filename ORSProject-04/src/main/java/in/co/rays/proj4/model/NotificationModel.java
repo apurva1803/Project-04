@@ -73,7 +73,7 @@ public class NotificationModel {
 
 		catch (Exception e) {
 			conn.rollback();
-			throw new ApplicationException("Exception : Exception in add Role");
+			throw new ApplicationException("Exception : Exception in add ");
 
 		}
 
@@ -132,7 +132,7 @@ public class NotificationModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update st_notification set code=? , type=?, time=?,status=?  ,created_by=?,modified_by=?,created_datetime=?,modified_datetime=? where id=?");
+					"update st_notification set code=? , type=?, time=?,status=?  ,createdBy=?,modifiedBy=?,createdDatetime=?,modifiedDatetime=? where id=?");
 			pstmt.setString(1, bean.getCode());
 			pstmt.setString(2, bean.getType());
 

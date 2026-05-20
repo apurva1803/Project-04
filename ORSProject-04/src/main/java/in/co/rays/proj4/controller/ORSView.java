@@ -114,17 +114,7 @@ public interface ORSView {
 	public String GYMWORKOUT_LIST_VIEW = PAGE_FOLDER + "/GymworkoutListView.jsp";
 	public String GYMWORKOUT_LIST_CTL = APP_CONTEXT + "/ctl/GymworkoutListCtl";
 
-	public String BROADCAST_VIEW = PAGE_FOLDER + "/BroadcastView.jsp";
-	public String BROADCAST_CTL = APP_CONTEXT + "/ctl/BroadcastCtl";
-
-	public String BROADCAST_LIST_VIEW = PAGE_FOLDER + "/BroadcastListView.jsp";
-	public String BROADCAST_LIST_CTL = APP_CONTEXT + "/ctl/BroadcastListCtl";
-
-	public String ART_VIEW = PAGE_FOLDER + "/ArtView.jsp";
-	public String ART_CTL = APP_CONTEXT + "/ctl/ArtCtl";
-
-	public String ART_LIST_VIEW = PAGE_FOLDER + "/ArtListView.jsp";
-	public String ART_LIST_CTL = APP_CONTEXT + "/ctl/ArtListCtl";
+	
 
 	public String NOTIFICATION_VIEW = PAGE_FOLDER + "/NotificationView.jsp";
 	public String NOTIFICATION_CTL = APP_CONTEXT + "/ctl/NotificationCtl";
@@ -163,27 +153,12 @@ public interface ORSView {
 	public String TRACKING_LIST_CTL = APP_CONTEXT + "/ctl/TrackingListCtl";
 	
 
-	public String INTERNET_VIEW = PAGE_FOLDER + "/InternetView.jsp";
-	public String  INTERNET_CTL = APP_CONTEXT + "/ctl/InternetCtl";
-
-	public String  INTERNET_LIST_VIEW = PAGE_FOLDER + "/InternetListView.jsp";
-	public String  INTERNET_LIST_CTL = APP_CONTEXT + "/ctl/InternetListCtl";
-
-	
-
 	public String LAB_VIEW = PAGE_FOLDER + "/LabView.jsp";
 	public String  LAB_CTL = APP_CONTEXT + "/ctl/LabCtl";
 
 	public String  LAB_LIST_VIEW = PAGE_FOLDER + "/LabListView.jsp";
 	public String  LAB_LIST_CTL = APP_CONTEXT + "/ctl/LabListCtl";
 	
-
-
-	public String PRESCRIPTION_VIEW = PAGE_FOLDER + "/PrescriptionView.jsp";
-	public String  PRESCRIPTION_CTL = APP_CONTEXT + "/ctl/PrescriptionCtl";
-
-	public String  PRESCRIPTION_LIST_VIEW = PAGE_FOLDER + "/PrescriptionListView.jsp";
-	public String  PRESCRIPTION_LIST_CTL = APP_CONTEXT + "/ctl/PrescriptionListCtl";
 	
 
 	public String BUDGET_VIEW = PAGE_FOLDER + "/BudgetView.jsp";
