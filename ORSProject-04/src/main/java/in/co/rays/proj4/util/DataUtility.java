@@ -88,6 +88,14 @@ public class DataUtility {
             return 0;
         }
     }
+    
+    public static double getDouble(String val) {
+        if (DataValidator.isDouble(val)) {
+            return Double.parseDouble(val);
+        } else {
+            return 0;
+        }
+    }
 
     /**
      * Parses a date string using the application date format.

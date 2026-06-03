@@ -152,7 +152,7 @@ public class RoleModel {
             conn = JDBCDataSource.getConnection();
             conn.setAutoCommit(false);
             PreparedStatement pstmt = conn.prepareStatement(
-                    "update st_role set name = ?, description = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+                    "update st_role set name = ?, description = ?, createdBy = ?, modifiedBy = ?, createdDatetime = ?, modifiedDatetime = ? where id = ?");
             pstmt.setString(1, bean.getName());
             pstmt.setString(2, bean.getDescription());
             pstmt.setString(3, bean.getCreatedBy());

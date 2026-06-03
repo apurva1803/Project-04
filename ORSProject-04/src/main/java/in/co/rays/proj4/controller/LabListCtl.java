@@ -23,8 +23,6 @@ import in.co.rays.proj4.util.ServletUtility;
 @WebServlet(name = "LabListCtl", urlPatterns = { "/ctl/LabListCtl" })
 public class LabListCtl extends BaseCtl {
 
-    
-
     @Override
 	protected BaseBean populateBean(HttpServletRequest request) {
 

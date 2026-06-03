@@ -137,7 +137,7 @@ public class CollegeModel {
             conn = JDBCDataSource.getConnection();
             conn.setAutoCommit(false);
             PreparedStatement pstmt = conn.prepareStatement(
-                    "update st_college set name = ?, address = ?, state = ?, city = ?, phone_no = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+                    "update st_college set name = ?, address = ?, state = ?, city = ?, phone_no = ?, createdBy = ?, modifiedBy = ?, createdDatetime = ?, modifiedDatetime = ? where id = ?");
             pstmt.setString(1, bean.getName());
             pstmt.setString(2, bean.getAddress());
             pstmt.setString(3, bean.getState());

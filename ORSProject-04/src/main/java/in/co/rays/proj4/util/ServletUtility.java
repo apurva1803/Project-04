@@ -239,6 +239,7 @@ public class ServletUtility {
     }
     public static void handleException(Exception e, HttpServletRequest request, HttpServletResponse response, String view)
     		throws IOException, ServletException {
+    	
     	String lastCtl = (String) request.getAttribute("ORIGINAL_CTL");
     	request.setAttribute("lastCtl", lastCtl);
     	request.setAttribute("javax.servlet.error.exception", e);

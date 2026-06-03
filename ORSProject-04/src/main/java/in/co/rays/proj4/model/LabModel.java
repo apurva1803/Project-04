@@ -97,7 +97,7 @@ public class LabModel {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update st_lab set name=?,cost=?,date=?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+					"update st_lab set name=?,cost=?,date=?, createdBy = ?, modifiedBy = ?, createdDatetime = ?, modifiedDatetime = ? where id = ?");
 			pstmt.setString(1, bean.getName());
 			pstmt.setDouble(2, bean.getCost());
 			pstmt.setDate(3, new java.sql.Date(bean.getDate().getTime()));

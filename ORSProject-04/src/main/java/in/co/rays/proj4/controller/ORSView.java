@@ -107,23 +107,17 @@ public interface ORSView {
 	public String JAVA_DOC = "/ORSProject-04/doc/index.html";
 
 
-
 	public String GYMWORKOUT_VIEW = PAGE_FOLDER + "/GymworkoutView.jsp";
 	public String GYMWORKOUT_CTL = APP_CONTEXT + "/ctl/GymworkoutCtl";
 
 	public String GYMWORKOUT_LIST_VIEW = PAGE_FOLDER + "/GymworkoutListView.jsp";
 	public String GYMWORKOUT_LIST_CTL = APP_CONTEXT + "/ctl/GymworkoutListCtl";
 
-	
-
 	public String NOTIFICATION_VIEW = PAGE_FOLDER + "/NotificationView.jsp";
 	public String NOTIFICATION_CTL = APP_CONTEXT + "/ctl/NotificationCtl";
 
 	public String NOTIFICATION__LIST_VIEW = PAGE_FOLDER + "/NotificationListView.jsp";
 	public String NOTIFICATION__LIST_CTL = APP_CONTEXT + "/ctl/NotificationListCtl";
-
-
-
 
 
 	public String PAYMENT_VIEW = PAGE_FOLDER + "/PaymentView.jsp";
@@ -138,7 +132,6 @@ public interface ORSView {
 	public String ANNOUNCE_LIST_VIEW = PAGE_FOLDER + "/AnnounceListView.jsp";
 	public String ANNOUNCE_LIST_CTL = APP_CONTEXT + "/ctl/AnnounceListCtl";
 
-	
 
 	public String EMI_VIEW = PAGE_FOLDER + "/EmiView.jsp";
 	public String EMI_CTL = APP_CONTEXT + "/ctl/EmiCtl";
@@ -159,7 +152,6 @@ public interface ORSView {
 	public String  LAB_LIST_VIEW = PAGE_FOLDER + "/LabListView.jsp";
 	public String  LAB_LIST_CTL = APP_CONTEXT + "/ctl/LabListCtl";
 	
-	
 
 	public String BUDGET_VIEW = PAGE_FOLDER + "/BudgetView.jsp";
 	public String  BUDGET_CTL = APP_CONTEXT + "/ctl/BudgetCtl";
@@ -178,4 +170,16 @@ public interface ORSView {
 
 	public String  TRANSPORT_LIST_VIEW = PAGE_FOLDER + "/TransportListView.jsp";
 	public String  TRANSPORT_LIST_CTL = APP_CONTEXT + "/ctl/TransportListCtl";
+	
+	public String  JOBPORTAL_VIEW = PAGE_FOLDER + "/JobportalView.jsp";
+	public String  JOBPORTAL_CTL = APP_CONTEXT + "/ctl/JobportalCtl";
+
+	public String  JOBPORTAL_LIST_VIEW = PAGE_FOLDER + "/JobportalListView.jsp";
+	public String  JOBPORTAL_LIST_CTL = APP_CONTEXT + "/ctl/JobportalListCtl";
+	
+	public String  STOCK_VIEW = PAGE_FOLDER + "/StockView.jsp";
+	public String  STOCK_CTL = APP_CONTEXT + "/ctl/StockCtl";
+
+	public String  STOCK_LIST_VIEW = PAGE_FOLDER + "/StockListView.jsp";
+	public String  STOCK_LIST_CTL = APP_CONTEXT + "/ctl/StockListCtl";
 }

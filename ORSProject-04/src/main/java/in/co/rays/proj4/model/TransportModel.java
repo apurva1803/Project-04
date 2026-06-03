@@ -128,7 +128,7 @@ public class TransportModel {
 			
 			conn=JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt=conn.prepareStatement("update st_transport set vehicle_type=? , driver_name=?, charges=? ,created_by=?,modified_by=?,created_datetime=?,modified_datetime=? where id=?");
+			PreparedStatement pstmt=conn.prepareStatement("update st_transport set vehicle_type=? , driver_name=?, charges=? ,createdBy=?,modifiedBy=?,createdDatetime=?,modifiedDatetime=? where id=?");
 			pstmt.setString(1, bean.getVehicleType());
 			pstmt.setString(2, bean.getDriverName());
 			

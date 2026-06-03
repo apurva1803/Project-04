@@ -95,10 +95,6 @@
 	<b>|</b>
 	<a href="<%=ORSView.LAB_LIST_CTL%>"><b> Lab List </b></a>
 	<b>|</b>
-		
-	
-		
-	
 	
 	<a href="<%=ORSView.EMI_CTL%>"><b>Add Emi</b></a>
 	<b>|</b>
@@ -111,7 +107,15 @@
 	<a href="<%=ORSView.BUDGET_CTL%>"><b>Add Budget</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.BUDGET_LIST_CTL%>"><b> Budget List </b></a>
-<b>|</b>
+	<b>|</b>
+	<a href="<%=ORSView.JOBPORTAL_CTL%>"><b>Add JobPortal</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.JOBPORTAL_LIST_CTL%>"><b> JobPortal List </b></a>
+	<b>|</b>
+	<a href="<%=ORSView.STOCK_CTL%>"><b>Add Stock</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.STOCK_LIST_CTL%>"><b> Stock List </b></a>
+	<b>|</b>
 
 
 	<%
@@ -163,10 +167,6 @@
 	<b>|</b>
 		
 	
-		
-		
-	
-	
 	<a href="<%=ORSView.EMI_CTL%>"><b>Add Emi</b></a>
 	<b>|</b>
 	<a href="<%=ORSView.EMI_LIST_CTL%>"><b> Emi List </b></a>
@@ -179,6 +179,15 @@
 	<b>|</b>
 	<a href="<%=ORSView.BUDGET_LIST_CTL%>"><b> Budget List </b></a>
 	<b>|</b>
+	<a href="<%=ORSView.JOBPORTAL_CTL%>"><b>Add JobPortal</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.JOBPORTAL_LIST_CTL%>"><b> JobPortal List </b></a>
+	<b>|</b>
+	<a href="<%=ORSView.STOCK_CTL%>"><b>Add Stock</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.STOCK_LIST_CTL%>"><b> Stock List </b></a>
+	<b>|</b>
+	
 	
 	<%
 		}

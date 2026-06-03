@@ -138,7 +138,7 @@ public class EmiModel  {
             conn.setAutoCommit(false);
 
             PreparedStatement pstmt = conn.prepareStatement(
-                "update st_emi set amount=?, dueDate=?, status=? ,  created_by=?,modified_by=? , created_datetime=?,modified_datetime=? where id=?");
+                "update st_emi set amount=?, dueDate=?, status=? ,  createdBy=?,modifiedBy=? , createdDatetime=?,modifiedDatetime=? where id=?");
 
             pstmt.setDouble(1, bean.getAmount());
             pstmt.setDate(2, new java.sql.Date(bean.getDueDate().getTime()));

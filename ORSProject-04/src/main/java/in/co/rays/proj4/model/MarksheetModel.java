@@ -166,7 +166,7 @@ public class MarksheetModel {
 
             conn.setAutoCommit(false); // Begin transaction
             PreparedStatement pstmt = conn.prepareStatement(
-                    "update st_marksheet set roll_no = ?, student_id = ?, name = ?, physics = ?, chemistry = ?, maths = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+                    "update st_marksheet set roll_no = ?, student_id = ?, name = ?, physics = ?, chemistry = ?, maths = ?, createdBy = ?, modifiedBy = ?, createdDatetime = ?, modifiedDatetime = ? where id = ?");
             pstmt.setString(1, bean.getRollNo());
             pstmt.setLong(2, bean.getStudentId());
             pstmt.setString(3, bean.getName());

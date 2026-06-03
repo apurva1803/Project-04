@@ -143,7 +143,7 @@ public class CourseModel {
             conn = JDBCDataSource.getConnection();
             conn.setAutoCommit(false);
             PreparedStatement pstmt = conn.prepareStatement(
-                    "update st_course set name = ?, duration = ?, description = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+                    "update st_course set name = ?, duration = ?, description = ?, createdBy = ?, modifiedBy = ?, createdDatetime = ?, modifiedDatetime = ? where id = ?");
             pstmt.setString(1, bean.getName());
             pstmt.setString(2, bean.getDuration());
             pstmt.setString(3, bean.getDescription());

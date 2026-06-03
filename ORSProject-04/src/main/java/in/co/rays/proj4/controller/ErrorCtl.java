@@ -30,6 +30,7 @@ public class ErrorCtl extends BaseCtl {
 			throws IOException, ServletException {
 
 		String lastCtl = (String) request.getAttribute("javax.servlet.error.request_uri");
+		
 		if (lastCtl == null) {
 			lastCtl = (String) request.getAttribute("lastCtl");
 		}
@@ -37,6 +38,7 @@ public class ErrorCtl extends BaseCtl {
 
 
 		ServletUtility.setErrorMessage("Database server down!!!", request);
+		
 		if (lastCtl != null && lastCtl.contains("ListCtl")) {
 
 		    if (ServletUtility.getList(request) == null) {
@@ -53,10 +55,8 @@ public class ErrorCtl extends BaseCtl {
 
 	}
 
-
-
-
 	@Override
 	protected String getView() {
 		return ORSView.LOGIN_VIEW;
-	}}
+	}
+}

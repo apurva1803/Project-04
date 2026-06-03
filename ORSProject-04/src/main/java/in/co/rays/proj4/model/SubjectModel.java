@@ -121,7 +121,7 @@ public class SubjectModel {
 
 			conn.setAutoCommit(false); // Begin transaction
 			PreparedStatement pstmt = conn.prepareStatement(
-					"update st_subject set name = ?, course_id = ?, course_name = ?, description = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+					"update st_subject set name = ?, course_id = ?, course_name = ?, description = ?, createdBy = ?, modifiedBy = ?, createdDatetime = ?, modifiedDatetime = ? where id = ?");
 			pstmt.setString(1, bean.getName());
 			pstmt.setLong(2, bean.getCourseId());
 			pstmt.setString(3, bean.getCourseName());
