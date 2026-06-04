@@ -116,7 +116,10 @@
 	<b>|</b>
 	<a href="<%=ORSView.STOCK_LIST_CTL%>"><b> Stock List </b></a>
 	<b>|</b>
-
+	<a href="<%=ORSView.BRANCHMANAGER_CTL%>"><b>Add BranchManager</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.BRANCHMANAGER_LIST_CTL%>"><b> BranchManager List </b></a>
+	<b>|</b>
 
 	<%
 		}
@@ -187,7 +190,10 @@
 	<b>|</b>
 	<a href="<%=ORSView.STOCK_LIST_CTL%>"><b> Stock List </b></a>
 	<b>|</b>
-	
+	<a href="<%=ORSView.BRANCHMANAGER_CTL%>"><b>Add BranchManager</b></a>
+	<b>|</b>
+	<a href="<%=ORSView.BRANCHMANAGER_LIST_CTL%>"><b> BranchManager List </b></a>
+	<b>|</b>
 	
 	<%
 		}

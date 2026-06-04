@@ -182,4 +182,10 @@ public interface ORSView {
 
 	public String  STOCK_LIST_VIEW = PAGE_FOLDER + "/StockListView.jsp";
 	public String  STOCK_LIST_CTL = APP_CONTEXT + "/ctl/StockListCtl";
+	
+	public String  BRANCHMANAGER_VIEW = PAGE_FOLDER + "/BranchManagerView.jsp";
+	public String  BRANCHMANAGER_CTL = APP_CONTEXT + "/ctl/BranchManagerCtl";
+
+	public String  BRANCHMANAGER_LIST_VIEW = PAGE_FOLDER + "/BranchManagerListView.jsp";
+	public String  BRANCHMANAGER_LIST_CTL = APP_CONTEXT + "/ctl/BranchManagerListCtl";
 }
